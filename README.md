@@ -4,7 +4,6 @@
 
 [![Coverage Status](https://img.shields.io/coveralls/thingstance/thingstance.svg)](https://coveralls.io/r/thingstance/thingstance)
 
-
 A uniform, immutable data store, addressable by its contents, with properties and types informed by [schema.org/Thing](http://schema.org/Thing).
 
 # Thing
