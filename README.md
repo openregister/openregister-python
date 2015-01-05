@@ -65,8 +65,8 @@ A link to a `Thing` may be identified by a relative link using its `uid`, a link
 
 Datatype   |  Link value                            | URL dereferenced
 -----------|----------------------------------------|--------------------------------------------
-Link:Court | `9e26..4961196235bdb965b21b`           | `/Court/9e26..4961196235bdb965b21b.json`
-Link:Thing | `/Thing/9e26..4961196235bdb965b21b`    | `/Thing/9e26..4961196235bdb965b21b.json`
+Link:Court | `9e26..5bdb965b21b`                    | `/Court/9e26..5bdb965b21b.json`
+Link:Thing | `/Thing/9e26..5bdb965b21b`             | `/Thing/9e26..5bdb965b21b.json`
 Link:Court | `/Courts/St-Albans`                    | `https://example.org/Courts/St-Albans.json`
 Link:Court | `https://example.org/Courts/St-Albans` | `https://example.org/Courts/St-Albans.json`
 
