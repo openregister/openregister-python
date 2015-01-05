@@ -63,12 +63,12 @@ A `Link` may be qualified by the allowed type:
 
 A link to a `Thing` may be identified by a relative link using its `uid`, a link to another `Thing` may be a relative link, or the URL of the place on The Web where it may be resolved, eg. a 
 
- Link        | URL
--------------|-------------
-`9e26dfeeb6e641a33dae4961196235bdb965b21b` | `/Court/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
-`/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b` &mdash; `/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
-`/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
-`https://thingstance.org/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
+Datatype   |  Link value                                            | URL dereferenced
+-----------|--------------------------------------------------------|------------------------------------------------------------
+Link:Court | `9e26dfeeb6e641a33dae4961196235bdb965b21b`             | `/Court/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
+Link:Thing | `/Thing/9e26dfeeb6e641a33dae4961196235bdb965b21b`      | `/Thing/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
+Link:Court | `/Courts/St-Albans-Crown-Court`                        | `https://thingstance.org/Courts/St-Albans-Crown-Court.json`
+Link:Court | `https://thingstance.org/Courts/St-Albans-Crown-Court` | `https://thingstance.org/Courts/St-Albans-Crown-Court.json`
 
 ## Representations
 
