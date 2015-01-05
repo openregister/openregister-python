@@ -7,7 +7,7 @@ coverage:
 	coverage run --source thingstance -m py.test && coverage report
 
 coveralls:
-	py.test --cov systemofrecord tests/ --cov-report=term --cov-report=html
+	py.test --cov thingstance tests/ --cov-report=term --cov-report=html
 
 flake8:
 	flake8 thingstance tests
