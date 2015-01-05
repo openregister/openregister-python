@@ -10,13 +10,9 @@ class Thing(object):
     @property
     def uid(self):
         """The uid value, the git hash-object of the json."""
-        data = self.json
-        return sha1(
-            str("blob "
-                + str(len(data))
-                + "\0").encode("utf-8")
-            + data.encode("utf-8")
-            ).hexdigest()
+        data = self.json.encode("utf-8")
+        head = str("blob " + str(len(data)) + "\0").encode("utf-8")
+        return sha1(head + data).hexdigest()
 
     @property
     def json(self):
