@@ -8,19 +8,17 @@ A uniform, immutable data store, addressable by its contents, with properties an
 
 # Thing
 
-A Thing may be addressed using a unique identifier (`uid`), generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the JSON serialization of its contents.
-
-The `uid` this unique combined with , and an instance of the Thing are known as a Thingstance:
-
-<a href="https://www.flickr.com/photos/psd/15802043048" title="IMG_20141210_100039 by Paul Downey, on Flickr"><img src="https://farm8.staticflickr.com/7493/15802043048_42c66fa262.jpg" width="375" height="500" alt="IMG_20141210_100039"></a>
+A Thing may be addressed using a unique identifier `uid` generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the JSON serialization of its contents.
 
 ## Thingstance
 
-A Thingstance is a wrapper for a [Thing](#Thing), holding additional metadata such as:
+A Thingstance is a wrapper for a [Thing](#thing), holding additional metadata such as:
 
-* `type` &mdash; a [Type](#Types) to group Things, and enumerate a list of expected fields.
+* `type` &mdash; a [Type](#types) to group Things, and enumerate a list of expected fields.
 * `name` &mdash; a human-readable name for the Thing, which may used to form a [Semantic URL](http://en.wikipedia.org/wiki/Semantic_URL#Slug)
 * `tags` &mdash; one or more informal tags for grouping Things.
+
+<a href="https://www.flickr.com/photos/psd/15802043048" title="IMG_20141210_100039 by Paul Downey, on Flickr"><img src="https://farm8.staticflickr.com/7493/15802043048_42c66fa262.jpg" width="375" height="500" alt="IMG_20141210_100039"></a>
 
 ## Types ##
 
@@ -65,10 +63,12 @@ A `Link` may be qualified by the allowed type:
 
 A link to a `Thing` may be identified by a relative link using its `uid`, a link to another `Thing` may be a relative link, or the URL of the place on The Web where it may be resolved, eg. a 
 
-* `9e26dfeeb6e641a33dae4961196235bdb965b21b` &mdash; `/Court/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
-* `/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b` &mdash; `/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
-* `/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
-* `https://thingstance.org/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
+ Link        | URL
+-------------|-------------
+`9e26dfeeb6e641a33dae4961196235bdb965b21b` | `/Court/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
+`/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b` &mdash; `/Things/9e26dfeeb6e641a33dae4961196235bdb965b21b.json`
+`/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
+`https://thingstance.org/Courts/St-Albans-Crown-Court` &mdash; `https://thingstance.org/Courts/St-Albans-Crown-Court`
 
 ## Representations
 
