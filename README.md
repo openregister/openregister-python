@@ -64,7 +64,7 @@ A `Link` may be qualified by the allowed type:
 A link to a `Thing` may be identified by a relative link using its `uid`, a link to another `Thing` may be a relative link, or the URL of the place on The Web where it may be resolved, eg. a 
 
 Datatype   |  Link value                            | URL dereferenced
------------|----------------------------------------|--------------------------------------------
+:----------|:---------------------------------------|:-------------------------------------------
 Link:Court | `9e26..5bdb965b21b`                    | `/Court/9e26..5bdb965b21b.json`
 Link:Thing | `/Thing/9e26..5bdb965b21b`             | `/Thing/9e26..5bdb965b21b.json`
 Link:Court | `/Courts/St-Albans`                    | `https://example.org/Courts/St-Albans.json`
