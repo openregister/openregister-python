@@ -13,7 +13,7 @@ def requirements():
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
 setup(name='thingstance',
-      version='0.0.1',
+      version='0.1.0',
       description='Thing model package',
       author='Thingstance.org',
       author_email='paul.downey@whatfettle.com',
