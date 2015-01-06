@@ -92,6 +92,6 @@ Requires Python 3.4:
 
     $ mkvirtualenv thingstance
     $ workon thingstance
-    $ pip3 install -r requirements.txt
-    $ make
+    (thingstance) pip3 install -r requirements.txt
+    (thingstance)$ make
 
