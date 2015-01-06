@@ -85,3 +85,13 @@ A single Thing may be converted into other representations, dependent upon its t
 ## Stores
 
 Things and Thingstance data models are independent of how they may be stored, but are intended to easily map to git, key-stores such as mongodb, and redis, relational database tables, and conventional filesystems.
+
+## Development
+
+Requires Python 3.4:
+
+    $ mkvirtualenv thingstance
+    $ workon thingstance
+    $ pip3 install -r requirements.txt
+    $ make
+
