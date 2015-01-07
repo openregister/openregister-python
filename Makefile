@@ -1,3 +1,5 @@
+.PHONY: all test coverage coveralls flake8 dist clean
+
 all:	flake8 test coverage
 
 test:
@@ -13,6 +15,11 @@ flake8:
 	flake8 thingstance tests
 
 dist:
-	python3 setup.py sdist
+	python3 setup.py sdist upload
 
 clean:
+	-find . -name "*.pyc" | xargs rm -f
+	-find . -name "__pycache__" | xargs rm -rf
+	-rm -rf dist
+	-rm -rf build
+	-rm -rf tiddlyweb.egg-info
