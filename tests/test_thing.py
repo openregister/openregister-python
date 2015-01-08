@@ -38,7 +38,7 @@ def test_thing_as_json():
                     ' "streetAddress": "Aviation House, 125 Kingsway"}')
 
 
-def test_thing_uid():
+def test_thing_hash():
     thing = Thing()
 
     #
@@ -46,7 +46,7 @@ def test_thing_uid():
     # $ git add x ; git commit -m"x" x
     # $ git hash-object x
     #
-    assert thing.uid == "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+    assert thing.hash == "9e26dfeeb6e641a33dae4961196235bdb965b21b"
 
     #
     # $ /bin/echo '{"foo": "Foo Value"}\c' > y
@@ -55,7 +55,7 @@ def test_thing_uid():
     #
     thing.foo = "Foo Value"
     assert thing.json == '{"foo": "Foo Value"}'
-    assert thing.uid == "52664e0e405d51dad2d6c0e2979b4e1377e42abc"
+    assert thing.hash == "52664e0e405d51dad2d6c0e2979b4e1377e42abc"
 
     #
     # $ /bin/echo '{"bar": "こんにちは、元気ですか", "foo": "Foo Value"}\c' > z
@@ -64,4 +64,4 @@ def test_thing_uid():
     #
     thing.bar = "こんにちは、元気ですか"
     assert thing.json == '{"bar": "こんにちは、元気ですか", "foo": "Foo Value"}'
-    assert thing.uid == "9e8ef586772127778e1a3ac05bfd16bd20c5e57a"
+    assert thing.hash == "9e8ef586772127778e1a3ac05bfd16bd20c5e57a"

@@ -4,30 +4,57 @@
 
 [![Coverage Status](https://img.shields.io/coveralls/thingstance/thingstance.svg)](https://coveralls.io/r/thingstance/thingstance)
 
-A uniform, immutable data store, addressable by its contents, with properties and types informed by [schema.org/Thing](http://schema.org/Thing).
+A uniform, immutable data store, addressable by its contents, with consistent properties and types.
 
 # Thing
 
-A Thing may be addressed using a unique identifier `uid` generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the JSON serialization of its contents.
+A Thing is a set of 
 
-## Thingstance
+# Hash
 
-A Thingstance is a wrapper for a [Thing](#thing), holding additional metadata such as:
+A Thing may be addressed using a unique identifier `hash` generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the JSON serialization of its contents.
 
-* `type` &mdash; a [Type](#types) to group Things, and enumerate a list of expected fields.
-* `name` &mdash; a human-readable name for the Thing, which may used to form a [Semantic URL](http://en.wikipedia.org/wiki/Semantic_URL#Slug)
-* `tags` &mdash; one or more informal tags for grouping Things.
+## Field ##
 
-<a href="https://www.flickr.com/photos/psd/15802043048" title="IMG_20141210_100039 by Paul Downey, on Flickr"><img src="https://farm8.staticflickr.com/7493/15802043048_42c66fa262.jpg" width="375" height="500" alt="IMG_20141210_100039"></a>
+A Field is a named value, where name used for a field is globally unique, to be used consistently across all instances of things.
 
-## Types ##
+Where possible the name used for a field matches, or can be mapped onto properties  example a field with a name of [postalCode](http://schema.org/postalCode) field will always indicate the postal code, regardless of where it appears.
 
-The fields expected for a Thing may be defined by assigning a type. For example, a `Thing` with a type of `Location` is expected to have the following fields:
+## Datatype ##
+
+Each field has a defined `Datatype` which may be used to constrain the field value, for example `String`, `Text`, `Float`, `DateTime`, `Link`, etc.
+
+When defining a field, the datatype may be qualified by a single suffix character:
+
+* `!` &mdash; the field is a required value
+* `*` &mdash; the field is a list of values
+* `#` &mdash; the field is a set of values
+
+## Link
+
+A `Link` datatype may be qualified by the Tag being referenced:
+
+* `Link:Location`
+
+A link to a `Thing` may be identified by a relative link using its [[Hash]] value, or other value, a link to another `Thing` may be a relative link, or the URL of the place on The Web where it may be resolved, eg. a 
+
+Datatype   |  Link value                            | URL dereferenced
+:----------|:---------------------------------------|:-------------------------------------------
+Link:Court | `9e26..5bdb965b21b`                    | `/Court/9e26..5bdb965b21b`
+Link:Thing | `/Thing/9e26..5bdb965b21b`             | `/Thing/9e26..5bdb965b21b`
+Link:Court | `/Courts/St-Albans`                    | `https://example.org/Courts/St-Albans`
+Link:Court | `https://example.org/Courts/St-Albans` | `https://example.org/Courts/St-Albans`
+
+## Tag ##
+
+The attributes expected for a Thing may be defined by assigning one or more Tags.
+
+For example, a `Thing` with a type of `Location` should have the following attributes:
 
 * [longitude](http://schema.org/longitude)
 * [latitude](http://schema.org/latitude)
 
-A Thing with a type of `PostalAddress` should have the following fields:
+and a Thing with a type of `PostalAddress` should have the following attributes:
 
 * [streetAddress](http://schema.org/streetAddress)
 * [addressLocality](http://schema.org/addressLocality)
@@ -36,43 +63,9 @@ A Thing with a type of `PostalAddress` should have the following fields:
 * [postalCode](http://schema.org/postalCode)
 * location &mdash; the uid of the Thing describing the `Location`
 
-## Fields ##
+## Representation
 
-A thing is a set of fields, and the name used for a field is used consistently, for example a field with the name [postalCode](http://schema.org/postalCode) will always indicate the postal code value, regardless of its context, or the type of thing where it appears.
-
-## Datatypes ##
-
-A datatype may be used to validate a field value, such as:
-
-* `String`
-* `Float`
-* `DateTime`
-* `Markdown`
-* `Link`
-
-When defining a property, the datatype may be qualified by a single suffix character:
-
-* `!` &mdash; the field is required
-* `*` &mdash; the field is a list
-
-## Links
-
-A `Link` may be qualified by the allowed type:
-
-* `Link:Location`
-
-A link to a `Thing` may be identified by a relative link using its `uid`, a link to another `Thing` may be a relative link, or the URL of the place on The Web where it may be resolved, eg. a 
-
-Datatype   |  Link value                            | URL dereferenced
-:----------|:---------------------------------------|:-------------------------------------------
-Link:Court | `9e26..5bdb965b21b`                    | `/Court/9e26..5bdb965b21b.json`
-Link:Thing | `/Thing/9e26..5bdb965b21b`             | `/Thing/9e26..5bdb965b21b.json`
-Link:Court | `/Courts/St-Albans`                    | `https://example.org/Courts/St-Albans.json`
-Link:Court | `https://example.org/Courts/St-Albans` | `https://example.org/Courts/St-Albans.json`
-
-## Representations
-
-The canonical format for a Thing is sorted, JSON, but other representations can hold a Thing with fidelity:
+The canonical format for a single Thing is sorted, JSON, but other representations can hold a list of Things with fidelity:
 
 * .yaml - a YAML serialisation of the JSON [jsontoyaml](http://jsontoyaml.com/#python)
 * .txt - a plain text version compatible with [TiddlyWeb](http://tiddlyweb.org)
@@ -82,7 +75,11 @@ A single Thing may be converted into other representations, dependent upon its t
 * .vcf - a vcard for a Person, Place or PostalAddress
 * .ics - a calendar event for a time
 
-## Stores
+## List of Links
+
+## Bulk representation
+
+## Store
 
 Things and Thingstance data models are independent of how they may be stored, but are intended to easily map to git, key-stores such as mongodb, and redis, relational database tables, and conventional filesystems.
 
