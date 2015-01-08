@@ -1,0 +1,215 @@
+# a list of Things to bootstrap Datatype, Field and Tags
+
+- name: DateTime
+  text: A combination of a date and a time in the format `[-]CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm]` as described in chapter 5.4 of [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601) eg. `2014-12-31T21:55:49`.
+  tags:
+      - Datatype
+
+- name: Float
+  text: A string of [Unicode 6.2.x](http://www.unicode.org/versions/Unicode6.2.0/) characters, encoded as [UTF-8](http://en.wikipedia.org/wiki/UTF-8).
+  tags:
+      - Datatype
+
+- name: Digest
+  text: A [SHA-1](http://en.wikipedia.org/wiki/SHA-1), or possibly longer digest of data.
+  tags:
+      - Datatype
+
+- name: String
+  text: A string of [Unicode 6.2.x](http://www.unicode.org/versions/Unicode6.2.0/) characters, encoded as [UTF-8](http://en.wikipedia.org/wiki/UTF-8).
+  tags:
+      - Datatype
+
+- name: StringSet
+  text: A set of String values.
+  tags:
+      - Datatype
+
+- name: Text
+  text: A block of text containing [Markdown](http://en.wikipedia.org/wiki/Markdown) formatting instructions.
+  tags:
+      - Datatype
+
+- name: addressCountry
+  text: The country.
+  datatype: String
+  tags:
+      - Field
+
+- name: addressLocality
+  text: The locality.
+  datatype: String
+  tags:
+      - Field
+
+- name: addressRegion
+  text: The region.
+  datatype: String
+  tags:
+      - Field
+
+- name: endTime
+  text: The end of an event or recording.
+  datatype: DateTime
+  tags:
+      - Field
+
+- name: foundingDate
+  text: The ISO 8601 time the organisation was established.
+  datatype: DateTime
+  tags:
+      - Field
+
+- name: hash
+  text: A digest of the canonical serialisation of a Thing which may used to identify a thing from its contents. The hash may appear as a part of a `Link` to uniquely address a specific version of a Thing.
+  datatype: Digest
+  tags:
+      - Field
+
+- name: instrument
+  text: An object which recorded a [[Measurement]].
+  basetype: Instrument
+  tags:
+      - Field
+
+- name: latitude
+  text: A [WSG84](http://en.wikipedia.org/wiki/World_Geodetic_System) [latitude](http://en.wikipedia.org/wiki/Latitude) value.
+  basetype: Float
+  tags:
+      - Field
+
+- name: location
+  text: The geographical location of the event, organisation or action.
+  datatype: Location
+  tags:
+      - Field
+
+- name: longitude
+  text: A [WSG84](http://en.wikipedia.org/wiki/World_Geodetic_System) [longitude](http://en.wikipedia.org/wiki/Longitude) value.
+  datatype: Float
+  tags:
+      - Field
+
+- name: minted
+  text: The ISO 8601 time the thing was minted (created).
+  datatype: DateTime
+  tags:
+      - Field
+
+- name: name
+  text: A human-readable identifier for a Thing, which may used to construct a [Semantic URL](http://en.wikipedia.org/wiki/Semantic_URL#Slug).
+  datatype: String
+  tags:
+      - Field
+
+- name: polygon
+  text: A polygon is the area enclosed by a point-to-point path for which the starting and ending points are the same. A polygon is expressed as a series of four or more space delimited points where the first and final points are identical.
+  datatype: String
+  tags:
+      - Field
+
+- name: postalCode
+  text: The postal code.
+  datatype: String
+  tags:
+      - Field
+
+- name: startTime
+  text: The start of an event or recording.
+  datatype: DateTime
+  tags:
+      - Field
+
+- name: streetAddress
+  text: The street address.
+  datatype: String
+  tags:
+      - Field
+
+- name: tags
+  text:  A set of tags.
+  datatype: String#
+  tags:
+      - Field
+
+- name: type
+  text: Type of a thing.
+  datatype: String
+
+- name: unitCode
+  text: The unit of measurement for a `value` as the 3 character [UN/CEFACT Common Code](http://wiki.goodrelations-vocabulary.org/Documentation/UN/CEFACT_Common_Codes).
+  datatype: String
+
+- name: urn
+  text: An informal [URN](http://en.wikipedia.org/wiki/Uniform_resource_name) value comprising of a series of name (NID) and value (NSS) pairs, each separated by `:`. A URN value which conform to [RFC 2141](https://tools.ietf.org/html/rfc2141) and which are [registered](http://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml) with IANA should be prefixed with `urn:` 
+  datatype: String
+
+- name: value
+  text: A numerical value.
+  datatype: Float
+  tags:
+      - Field
+
+- name: Thing
+  text: The most generic item.
+  fields:
+      - id
+      - type
+      - minted
+      - previousVersion
+      - tags
+      - urn
+  tags:
+      - Tag
+
+- name: CourtBuilding
+  text: 
+  fields:
+      - location
+  tags:
+      - Tag
+
+- name: Instrument
+  text: An real world object or device, capable of recoding [[Measurements|Measurement]]
+  fields:
+      - location
+  tags:
+      - Tag
+
+- name: Measurement
+  text: A measurement taken at a [[location]] by an [[instrument]].
+  fields:
+      - startTime
+      - endTime
+      - instrument
+      - unitCode
+      - value
+  tags:
+      - Tag
+
+- name: Organisation
+  text: A company, charity or other organisation.
+  fields:
+      - name
+      - foundingDate
+  tags:
+      - Tag
+
+- name: Location
+  text: A fixed, physical location.
+  fields:
+      - latitude
+      - longitude
+  tags:
+      - Tag
+
+- name: PostalAddress
+  text: The postal address; directions to reach a location.
+  fields:
+      - streetAddress
+      - addressLocality
+      - addressRegion
+      - addressCountry
+      - postalCode
+  tags:
+      - Tag
