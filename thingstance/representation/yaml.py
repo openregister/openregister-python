@@ -22,4 +22,4 @@ def stream_load(stream):
 
 
 def register():
-    Thing.yaml = property(dump, None, None, """Representation in YAML.""")
+    Thing.yaml = property(dump)
