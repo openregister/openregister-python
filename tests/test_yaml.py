@@ -24,10 +24,10 @@ def test_postaladdress_as_yaml():
 
 
 def test_set_of_tags_as_yaml():
-    thing = Thing(name='foo', fields={'a', 'b', 'c', 'a'})
+    thing = Thing(name='foo', fields={'z', 'b', 'c', 'z'})
     data = thing.yaml
     assert data == ('fields: !!set\n'
-                    '  a: null\n'
                     '  b: null\n'
                     '  c: null\n'
+                    '  z: null\n'
                     'name: foo\n')
