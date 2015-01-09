@@ -1,11 +1,14 @@
 from thingstance import Thing
 
 
-def test_thing_as_json():
+def test_empty_thing_as_yaml():
     thing = Thing()
     data = thing.yaml
     assert data == ('{}\n')
 
+
+def test_postaladdress_as_yaml():
+    thing = Thing()
     thing.streetAddress = "Aviation House, 125 Kingsway"
     thing.addressLocality = "Holborn"
     thing.addressRegion = "London"
@@ -13,9 +16,18 @@ def test_thing_as_json():
     thing.addressCountry = "GB"
 
     data = thing.yaml
-    print(data)
     assert data == ('addressCountry: GB\n'
                     'addressLocality: Holborn\n'
                     'addressRegion: London\n'
                     'postcode: WC2B 6NH\n'
                     'streetAddress: Aviation House, 125 Kingsway\n')
+
+
+def test_set_of_tags_as_yaml():
+    thing = Thing(name='foo', fields={'a', 'b', 'c', 'a'})
+    data = thing.yaml
+    assert data == ('fields: !!set\n'
+                    '  a: null\n'
+                    '  b: null\n'
+                    '  c: null\n'
+                    'name: foo\n')
