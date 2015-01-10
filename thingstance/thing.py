@@ -1,4 +1,4 @@
-from .datatypes.digest import hash
+from .datatypes.digest import git_hash, base32_encode
 
 
 class Thing(object):
@@ -8,5 +8,10 @@ class Thing(object):
 
     @property
     def hash(self):
-        """The git hash-object value of the json."""
-        return hash(self.json.encode("utf-8"))
+        """The git hash-object value of for the Thing."""
+        return git_hash(self.json.encode("utf-8"))
+
+    @property
+    def hashkey(self):
+        """The hash value as a RFC 3548 Base 32 encoded string."""
+        return base32_encode(self.hash)

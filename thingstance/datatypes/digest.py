@@ -8,10 +8,6 @@ def git_hash(blob):
     return sha1(head + blob).hexdigest()
 
 
-def encode_hash(hexdigest):
-    """Return SHA-1 hexdigits as RFC 3548 base 32 encoding."""
+def base32_encode(hexdigest):
+    """Return SHA-1 hexdigits as lower-case RFC 3548 base 32 encoding."""
     return b32encode(bytes.fromhex(hexdigest)).decode('utf-8').lower()
-
-
-def hash(data):
-    return encode_hash(git_hash(data))
