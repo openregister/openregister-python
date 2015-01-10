@@ -17,6 +17,10 @@ flake8:
 dist:
 	python3 setup.py sdist upload
 
+init:
+	pip3 install -r requirements.txt
+	pip3 install -r requirements_test.txt
+
 clean:
 	-find . -name "*.pyc" | xargs rm -f
 	-find . -name "__pycache__" | xargs rm -rf
