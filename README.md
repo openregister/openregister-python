@@ -1,8 +1,6 @@
 # Thingstance
 
-[![Build Status](https://travis-ci.org/thingstance/thingstance.svg?branch=master)](https://travis-ci.org/thingstance/thingstance)
-
-[![Coverage Status](https://img.shields.io/coveralls/thingstance/thingstance.svg)](https://coveralls.io/r/thingstance/thingstance)
+[![Build Status](https://travis-ci.org/thingstance/thingstance.svg?branch=master)](https://travis-ci.org/thingstance/thingstance) [![Coverage Status](https://img.shields.io/coveralls/thingstance/thingstance.svg)](https://coveralls.io/r/thingstance/thingstance)
 
 A uniform, immutable data store, addressable by its contents, with consistent properties and types.
 
