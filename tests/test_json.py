@@ -1,3 +1,4 @@
+import pytest
 from thingstance import Thing
 
 
@@ -27,3 +28,9 @@ def test_set_of_tags_as_json():
     thing = Thing(name='foo', fields={'a', 'b', 'c', 'a'})
     data = thing.json
     assert data == ('{"fields": ["a", "b", "c"], "name": "foo"}')
+
+
+def test_unserializable__as_json():
+    thing = Thing(name='foo', unserializable=pytest)
+    with pytest.raises(TypeError):
+        thing.json
