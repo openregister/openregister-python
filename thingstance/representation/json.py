@@ -2,6 +2,14 @@ from ..thing import Thing
 import json
 
 
+content_type = 'application/json'
+
+
+def load(self, text):
+    """Thing from JSON representation."""
+    self.__dict__ = json.loads(text)
+
+
 def set_default(obj):
     if isinstance(obj, set):
         return sorted(list(obj))
@@ -17,5 +25,4 @@ def dump(self):
         default=set_default)
 
 
-def register():
-    Thing.json = property(dump)
+Thing.json = property(dump, load)

@@ -2,6 +2,9 @@ from ..thing import Thing
 import yaml
 
 
+content_type = 'application/yaml'
+
+
 def load(self, text):
     """Thing from YAML representation."""
     self.__dict__ = yaml.load(text)
@@ -12,5 +15,4 @@ def dump(self):
     return yaml.dump(self.__dict__, default_flow_style=False)
 
 
-def register():
-    Thing.yaml = property(dump, load)
+Thing.yaml = property(dump, load)

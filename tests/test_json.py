@@ -34,3 +34,31 @@ def test_unserializable__as_json():
     thing = Thing(name='foo', unserializable=pytest)
     with pytest.raises(TypeError):
         thing.json
+
+
+def test_empty_thing_from_json():
+    thing = Thing()
+    thing.json = ('{}')
+    assert thing.json == ('{}')
+
+
+def test_postaladdress_from_json():
+    thing = Thing()
+    thing.json = ('{"addressCountry": "GB",'
+                  ' "addressLocality": "Holborn",'
+                  ' "addressRegion": "London",'
+                  ' "postcode": "WC2B 6NH",'
+                  ' "streetAddress": "Aviation House, 125 Kingsway"}')
+
+    assert thing.streetAddress == "Aviation House, 125 Kingsway"
+    assert thing.addressLocality == "Holborn"
+    assert thing.addressRegion == "London"
+    assert thing.postcode == "WC2B 6NH"
+    assert thing.addressCountry == "GB"
+
+
+def test_set_of_tags_from_json():
+    thing = Thing()
+    thing.json = ('{"fields": ["a", "b", "c"], "name": "foo"}')
+    assert thing.name == 'foo'
+    assert thing.fields == ['a', 'b', 'c']

@@ -1,5 +1,4 @@
-from .json import register as register_json_plugin
-from .yaml import register as register_yaml_plugin
+representations = ['json', 'yaml']
 
-register_json_plugin()
-register_yaml_plugin()
+for r in representations:
+    m = __import__('thingstance.representation.'+r)
