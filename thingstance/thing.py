@@ -1,10 +1,4 @@
-from hashlib import sha1
-
-
-def hash(data):
-    head = str("blob " + str(len(data)) + "\0").encode("utf-8")
-    digest = sha1(head + data)
-    return digest.hexdigest()
+from .datatypes.digest import hash
 
 
 class Thing(object):
@@ -14,5 +8,5 @@ class Thing(object):
 
     @property
     def hash(self):
-        """A digest of the Thing; the git hash-object value of the json."""
+        """The git hash-object value of the json."""
         return hash(self.json.encode("utf-8"))
