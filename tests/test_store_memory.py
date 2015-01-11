@@ -1,5 +1,5 @@
 from thingstance import Thing
-from thingstance.store.memory import MemoryStore
+from thingstance.stores.memory import MemoryStore
 
 store = MemoryStore()
 

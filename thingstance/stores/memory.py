@@ -1,4 +1,7 @@
-class MemoryStore(object):
+from ..store import Store
+
+
+class MemoryStore(Store):
 
     """Simple in-memory storage for Things."""
 
