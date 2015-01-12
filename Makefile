@@ -3,7 +3,7 @@
 all:	flake8 test coverage
 
 test:
-	py.test -s
+	py.test -v -s
 
 coverage:
 	coverage run --source thingstance -m py.test && coverage report
