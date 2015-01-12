@@ -9,7 +9,12 @@ Connection().drop_database(database)
 store = MongoStore(database=database)
 
 
-def test_memory_store():
+def test_not_found():
+    thing = store.get('invalid hash')
+    assert thing is None
+
+
+def test_store():
     thing = Thing()
     empty_hash = thing.hash
     store.put(thing)
@@ -34,7 +39,7 @@ def test_memory_store():
     assert thing.text == 'Bar Value'
 
 
-def test_mongodb_get_latest_by_name():
+def test_get_latest_by_name():
     with pytest.raises(NotImplementedError):
         store.get_latest(name="toves")
 

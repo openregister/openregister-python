@@ -23,6 +23,9 @@ class MongoStore(Store):
 
     def get(self, hash):
         doc = self.coll.find_one({'_id': hash})
+        if doc is None:
+            return None
+
         del doc['_id']
 
         thing = Thing()
