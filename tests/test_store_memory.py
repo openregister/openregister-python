@@ -9,6 +9,16 @@ def test_not_found():
     assert thing is None
 
 
+def test_simple_store():
+    text = 'This is a test'
+    thing = Thing(text=text)
+    store.put(thing)
+
+    got = store.get(thing.hash)
+    assert thing.hash == got.hash
+    assert thing.text == got.text
+
+
 def test_store():
     thing = Thing()
     empty_hash = thing.hash
