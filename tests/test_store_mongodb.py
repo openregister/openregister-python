@@ -37,3 +37,26 @@ def test_memory_store():
 def test_mongodb_get_latest_by_name():
     with pytest.raises(NotImplementedError):
         store.get_latest(name="toves")
+
+
+def test_own_database_and_collection():
+    database = 'testing_named_things'
+    collection = 'testing_collection'
+    store = MongoStore(database=database, collection=collection)
+    assert store.db.name == database
+    assert store.coll.name == collection
+
+
+def test_own_db():
+    database = 'testing_other_things'
+    db = Connection()[database]
+    store = MongoStore(db=db)
+    assert store.db == db
+    assert store.db.name == database
+
+
+def test_idempotent_put():
+    thing = Thing(text='Idempotent?')
+    store.put(thing)
+    store.put(thing)
+    store.put(thing)
