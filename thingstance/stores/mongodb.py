@@ -14,15 +14,15 @@ class MongoStore(Store):
             client = MongoClient()
             db = client[database]
         self.db = db
-        self.coll = self.db[collection]
+        self.things = self.db[collection]
 
     def put(self, thing):
         doc = thing.primitive
         hash = thing.hash
-        self.coll.update({'_id': hash}, doc, upsert=True)
+        self.things.update({'_id': hash}, doc, upsert=True)
 
     def get(self, hash):
-        doc = self.coll.find_one({'_id': hash})
+        doc = self.things.find_one({'_id': hash})
         if doc is None:
             return None
 
