@@ -59,7 +59,7 @@ def test_own_database_and_collection():
     collection = 'testing_collection'
     store = MongoStore(database=database, collection=collection)
     assert store.db.name == database
-    assert store.coll.name == collection
+    assert store.things.name == collection
 
 
 def test_own_db():
