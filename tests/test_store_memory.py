@@ -4,7 +4,12 @@ from thingstance.stores.memory import MemoryStore
 store = MemoryStore()
 
 
-def test_memory_store():
+def test_not_found():
+    thing = store.get('invalid hash')
+    assert thing is None
+
+
+def test_store():
     thing = Thing()
     empty_hash = thing.hash
     store.put(thing)
@@ -29,7 +34,7 @@ def test_memory_store():
     assert thing.text == 'Bar Value'
 
 
-def test_memory_get_latest_by_name():
+def test_get_latest_by_name():
     store.put(Thing(name="toves", text='Slithy'))
     store.put(Thing(name="borogoves", text='Mimsy'))
 

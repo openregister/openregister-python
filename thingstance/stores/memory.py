@@ -18,7 +18,10 @@ class MemoryStore(Store):
             pass
 
     def get(self, hash):
-        return self.things[hash]
+        try:
+            return self.things[hash]
+        except KeyError:
+            return None
 
     def get_latest(self, name=None):
         return self.latest[name]
