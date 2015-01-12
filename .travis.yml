@@ -9,8 +9,8 @@ install:
 services:
   - mongodb
 script:
-   - make flake8
-   - make test
-   - make coveralls
+  - make flake8
+  - make test
+  - make coveralls
 after_success:
-   - coveralls --ignore-errors
+  - coveralls --ignore-errors
