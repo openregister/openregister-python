@@ -68,3 +68,10 @@ def test_get_latest_by_name():
     assert thing.hash == v1.hash
     assert thing.name == "borogoves"
     assert thing.text == "Mimsy"
+
+
+def test_idempotent_put():
+    thing = Thing(text='Idempotent?')
+    store.put(thing)
+    store.put(thing)
+    store.put(thing)
