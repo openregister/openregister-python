@@ -14,7 +14,7 @@ class MongoStore(Store):
         if not client:
             client = MongoClient()
         self.client = client
-        self.db = self.client.db[database]
+        self.db = self.client[database]
         self.coll = self.db[collection]
 
     def put(self, thing):
