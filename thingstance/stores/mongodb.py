@@ -1,7 +1,6 @@
 from ..store import Store
 from ..thing import Thing
 from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError
 
 
 class MongoStore(Store):
@@ -19,11 +18,8 @@ class MongoStore(Store):
 
     def put(self, thing):
         doc = thing.primitive
-        doc['_id'] = thing.hash
-        try:
-            self.coll.insert(doc)
-        except DuplicateKeyError:
-            pass
+        hash = thing.hash
+        self.coll.update({'_id': hash}, doc, upsert=True)
 
     def get(self, hash):
         doc = self.coll.find_one({'_id': hash})
