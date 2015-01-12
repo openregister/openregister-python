@@ -8,6 +8,8 @@ install:
   - "pip install python-coveralls"
 services:
   - mongodb
+before_script:
+  - sleep 5
 script:
   - make flake8
   - make test
