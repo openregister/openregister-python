@@ -49,6 +49,12 @@ def test_store():
     assert thing.text == 'Bar Value'
 
 
+def test_tags():
+    thing = Thing()
+    thing.tags = {'one', 'two', 'three'}
+    thing = store.put(thing)
+
+
 def test_get_latest_by_name():
     with pytest.raises(NotImplementedError):
         store.get_latest(name="toves")

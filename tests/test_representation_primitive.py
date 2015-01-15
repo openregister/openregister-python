@@ -48,14 +48,14 @@ def test_postaladdress_from_primitive():
 def test_set_of_tags_as_primitive():
     thing = Thing(name='foo', fields={'z', 'b', 'c', 'z'})
     assert thing.primitive == {
-        'fields': {'b', 'c', 'z'},
+        'fields': ['b', 'c', 'z'],
         'name': 'foo'}
 
 
 def test_set_of_tags_from_primitive():
     thing = Thing()
     thing.primitive = {
-        'fields': {'c', 'a', 'b'},
+        'fields': ['a', 'b', 'c'],
         'name': 'foo'}
     assert thing.name == 'foo'
-    assert thing.fields == {'a', 'b', 'c'}
+    assert thing.fields == ['a', 'b', 'c']

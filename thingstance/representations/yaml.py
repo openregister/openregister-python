@@ -12,7 +12,7 @@ def load(self, text):
 
 def dump(self):
     """Thing in YAML representation."""
-    return yaml.dump(self.__dict__, default_flow_style=False)
+    return yaml.dump(self.primitive, default_flow_style=False)
 
 
 Thing.yaml = property(dump, load)

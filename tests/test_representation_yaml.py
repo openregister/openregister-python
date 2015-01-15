@@ -47,19 +47,19 @@ def test_postaladdress_from_yaml():
 def test_set_of_tags_as_yaml():
     thing = Thing(name='foo', fields={'z', 'b', 'c', 'z'})
     data = thing.yaml
-    assert data == ('fields: !!set\n'
-                    '  b: null\n'
-                    '  c: null\n'
-                    '  z: null\n'
+    assert data == ('fields:\n'
+                    '- b\n'
+                    '- c\n'
+                    '- z\n'
                     'name: foo\n')
 
 
 def test_set_of_tags_from_yaml():
     thing = Thing()
-    thing.yaml = ('fields: !!set\n'
-                  '  b: null\n'
-                  '  c: null\n'
-                  '  z: null\n'
+    thing.yaml = ('fields:\n'
+                  '  - b\n'
+                  '  - c\n'
+                  '  - z\n'
                   'name: foo\n')
     assert thing.name == "foo"
-    assert thing.fields == {'b', 'c', 'z'}
+    assert thing.fields == ['b', 'c', 'z']

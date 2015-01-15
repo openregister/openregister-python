@@ -10,19 +10,12 @@ def load(self, text):
     self.__dict__ = json.loads(text)
 
 
-def set_default(obj):
-    if isinstance(obj, set):
-        return sorted(list(obj))
-    raise TypeError
-
-
 def dump(self):
     """JSON representation."""
     return json.dumps(
-        self.__dict__,
+        self.primitive,
         sort_keys=True,
-        ensure_ascii=False,
-        default=set_default)
+        ensure_ascii=False)
 
 
 Thing.json = property(dump, load)
