@@ -15,7 +15,7 @@ def dump(self):
     return json.dumps(
         self.primitive,
         sort_keys=True,
-        ensure_ascii=False)
+        ensure_ascii=False) + "\n"
 
 
 Thing.json = property(dump, load)
