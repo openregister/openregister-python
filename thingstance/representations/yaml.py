@@ -2,7 +2,7 @@ from ..thing import Thing
 import yaml
 
 
-content_type = 'text/yaml; charset=utf-8'
+content_type = 'application/yaml'
 
 
 def load(self, text):

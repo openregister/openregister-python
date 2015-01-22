@@ -1,5 +1,10 @@
 import pytest
 from thingstance import Thing
+from thingstance.representations.json import content_type
+
+
+def test_json_content_type():
+    assert content_type == "application/json"
 
 
 def test_empty_thing_as_json():
