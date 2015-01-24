@@ -31,8 +31,20 @@ def test_empty_thing_from_json_with_whitespace():
 
 def test_unserializable__as_json():
     thing = Thing(name='foo', unserializable=pytest)
-    with pytest.raises(TypeError):
+    with pytest.raises(AttributeError):
         thing.json
+
+
+def test_ignore_private_as_json():
+    thing = Thing()
+    thing._zero = "to be removed"
+    thing.one = "one value"
+    thing._two = "should be removed"
+    thing.two = "two value"
+    thing._three = "three"
+
+    data = thing.json
+    assert data == ('{"one": "one value", "two": "two value"}\n')
 
 
 def test_postaladdress_as_json():

@@ -13,6 +13,18 @@ def test_empty_thing_from_primitive():
     assert thing.primitive == {}
 
 
+def test_ignore_private_as_primitive():
+    thing = Thing()
+    thing._zero = "to be removed"
+    thing.one = "one value"
+    thing._two = "should be removed"
+    thing.two = "two value"
+    thing._three = "three"
+
+    data = thing.primitive
+    assert data == ({"one": "one value", "two": "two value"})
+
+
 def test_postaladdress_as_primitive():
     thing = Thing()
     thing.streetAddress = "Aviation House, 125 Kingsway"
