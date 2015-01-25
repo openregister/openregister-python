@@ -15,3 +15,6 @@ def test_store_interface():
 
     with pytest.raises(NotImplementedError):
         store.get_latest()
+
+    with pytest.raises(NotImplementedError):
+        store.find()

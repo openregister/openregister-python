@@ -10,3 +10,6 @@ class Store(object):
 
     def get_latest(self, name=None):
         raise NotImplementedError
+
+    def find(self, query={}, page=1, page_size=50):
+        raise NotImplementedError

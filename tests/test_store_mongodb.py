@@ -81,3 +81,29 @@ def test_idempotent_put():
     store.put(thing)
     store.put(thing)
     store.put(thing)
+
+
+def test_find():
+    database = 'testing_finding'
+    Connection().drop_database(database)
+    store = MongoStore(database=database)
+    store.put(Thing(name='one', tags={'tag1'}))
+    store.put(Thing(name='two', tags={'tag2'}))
+    store.put(Thing(name='three', tags={}))
+    store.put(Thing(name='four', tags={'tag2'}))
+
+    meta, things = store.find()
+    assert meta['total'] == 4
+    assert meta['page'] == 1
+    assert meta['pages'] == 1
+    assert len(things) == 4
+
+    meta, things = store.find(page_size=2)
+    assert meta['page'] == 1
+    assert meta['pages'] == 2
+    assert len(things) == 2
+
+    meta, things = store.find(page=2, page_size=2)
+    assert meta['page'] == 2
+    assert meta['pages'] == 2
+    assert len(things) == 2

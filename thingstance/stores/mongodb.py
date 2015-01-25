@@ -1,3 +1,4 @@
+import math
 from ..store import Store
 from ..thing import Thing
 from pymongo import MongoClient
@@ -36,4 +37,22 @@ class MongoStore(Store):
         thing.primitive = doc
         return thing
 
-store = MongoStore()
+    def find(self, query={}, page=1, page_size=50):
+        total = self.things.find(query).count()
+        pages = math.ceil(total/page_size)
+        if page == 1:
+            start = page - 1
+        else:
+            start = (page - 1) * page_size
+
+        cursor = self.things.find(query)[start: start+page_size]
+        things = [Thing(**record) for record in cursor]
+
+        meta = {
+            "query": query,
+            "total": total,
+            "page":  page,
+            "pages": pages,
+        }
+
+        return meta, things
