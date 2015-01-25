@@ -9,13 +9,13 @@ def test_csv_content_type():
 def test_empty_thing_as_csv():
     thing = Thing()
     data = thing.csv
-    assert data == '\r\n\r\n'
+    assert data == ''
 
 
 def test_empty_thing_from_csv():
     thing = Thing()
     thing.csv = ('')
-    assert thing.csv == ('\r\n\r\n')
+    assert thing.csv == ('')
 
 
 def test_simple_as_csv():
