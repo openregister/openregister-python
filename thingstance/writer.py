@@ -4,7 +4,6 @@ class Writer(object):
 
     def __init__(self, stream):
         self.stream = stream
-        self.sep = ""
 
     def write(self, thing):
         raise NotImplementedError

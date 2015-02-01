@@ -18,11 +18,16 @@ def dump(self):
 
 class Writer(Writer):
     """Write YAML array."""
+    def __init__(self, stream, sep="\n"):
+        self.stream = stream
+        self.sep = sep
+        self.sol = ""
+
     def write(self, thing):
         self.stream.write(
-            self.sep
+            self.sol
             + yaml.dump([thing.primitive], default_flow_style=False))
-        self.sep = "\n"
+        self.sol = self.sep
 
 
 Thing.yaml = property(dump, load)

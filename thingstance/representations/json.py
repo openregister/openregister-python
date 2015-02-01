@@ -21,11 +21,11 @@ def dump(self, eol="\n"):
 
 class Writer(Writer):
     """Write JSON array."""
-    def __init__(self, stream, sof="[", sep=",\n", eof="]\n"):
+    def __init__(self, stream, start="[", sep=",\n", end="]\n"):
         self.stream = stream
         self.sep = sep
-        self.eof = eof
-        self.stream.write(sof)
+        self.end = end
+        self.stream.write(start)
         self.sol = ""
 
     def write(self, thing):
@@ -33,7 +33,7 @@ class Writer(Writer):
         self.sol = self.sep
 
     def close(self):
-        self.stream.write(self.eof)
+        self.stream.write(self.end)
 
 
 Thing.json = property(dump, load)
