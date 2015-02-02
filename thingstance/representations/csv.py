@@ -1,6 +1,7 @@
-from ..thing import Thing
 import io
 import csv
+from ..thing import Thing
+from ..writer import Writer
 
 
 content_type = 'text/csv; charset=utf-8'
@@ -31,34 +32,39 @@ def load(self, text,
         self.primitive = {}
 
 
-def dump(self,
-         delimiter=",",
-         lineterminator='\r\n',
-         quotechar='"',
-         quoting=csv.QUOTE_ALL):
+class Writer(Writer):
+    """Write CSV of things."""
+    def __init__(self, stream, fieldnames,
+                 delimiter=",",
+                 lineterminator='\r\n',
+                 quotechar='"',
+                 quoting=csv.QUOTE_ALL):
 
-    """CSV representation."""
+        if not quotechar:
+            quoting = csv.QUOTE_NONE
 
-    dict = self.primitive
+        self.writer = csv.DictWriter(
+            stream,
+            fieldnames=fieldnames,
+            delimiter=delimiter,
+            lineterminator=lineterminator,
+            quotechar=quotechar,
+            quoting=quoting)
 
-    fieldnames = sorted(list(dict.keys()))
+        self.writer.writeheader()
+
+    def write(self, thing):
+        self.writer.writerow(thing.primitive)
+
+
+def dump(self, **kwargs):
+    """CSV representation of a thing."""
+
+    fieldnames = sorted(list(self.primitive.keys()))
 
     f = io.StringIO()
-
-    if not quotechar:
-        quoting = csv.QUOTE_NONE
-
-    writer = csv.DictWriter(
-        f,
-        fieldnames=fieldnames,
-        delimiter=delimiter,
-        lineterminator=lineterminator,
-        quotechar=quotechar,
-        quoting=quoting)
-
-    writer.writeheader()
-    writer.writerow(dict)
-
+    w = Writer(f, fieldnames, **kwargs)
+    w.write(self)
     text = f.getvalue().lstrip()
     f.close()
 
