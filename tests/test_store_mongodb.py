@@ -1,12 +1,17 @@
 import pytest
 from thingstance import Thing
 from thingstance.stores.mongodb import MongoStore
-from pymongo import Connection
 
-database = 'testing_things'
+from pymongo import MongoClient
 
-Connection().drop_database(database)
-store = MongoStore(database=database)
+mongo_uri = 'mongodb://127.0.0.1:27017/testing_things'
+client = MongoClient(mongo_uri)
+
+store = MongoStore(mongo_uri)
+
+def clear_db(mongo_uri, db_name):
+    client = MongoClient(mongo_uri)
+    client.drop_database(db_name)
 
 
 def test_not_found():
@@ -61,19 +66,19 @@ def test_get_latest_by_name():
 
 
 def test_own_database_and_collection():
-    database = 'testing_named_things'
+    mongo_uri = 'mongodb://127.0.0.1:27017/testing_named_things'
     collection = 'testing_collection'
-    store = MongoStore(database=database, collection=collection)
-    assert store.db.name == database
+    store = MongoStore(mongo_uri, collection=collection)
+    assert store.db.name == 'testing_named_things'
     assert store.things.name == collection
+    clear_db(mongo_uri, store.db.name)
 
 
 def test_own_db():
-    database = 'testing_other_things'
-    db = Connection()[database]
-    store = MongoStore(db=db)
-    assert store.db == db
-    assert store.db.name == database
+    mongo_uri = 'mongodb://127.0.0.1:27017/testing_other_things'
+    store = MongoStore(mongo_uri)
+    assert store.db.name == 'testing_other_things'
+    clear_db(mongo_uri, store.db.name)
 
 
 def test_idempotent_put():
@@ -84,9 +89,8 @@ def test_idempotent_put():
 
 
 def test_find():
-    database = 'testing_finding'
-    Connection().drop_database(database)
-    store = MongoStore(database=database)
+    mongo_uri = 'mongodb://127.0.0.1:27017/testing_finding'
+    store = MongoStore(mongo_uri)
     store.put(Thing(name='one', tags={'tag1'}))
     store.put(Thing(name='two', tags={'tag2'}))
     store.put(Thing(name='three', tags={}))
@@ -107,3 +111,4 @@ def test_find():
     assert meta['page'] == 2
     assert meta['pages'] == 2
     assert len(things) == 2
+    clear_db(mongo_uri, store.db.name)
