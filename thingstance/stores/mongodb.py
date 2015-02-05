@@ -9,13 +9,9 @@ class MongoStore(Store):
 
     """MongoDB storage for Things."""
 
-    def __init__(self, db=None,
-                 database="thingstance",
-                 collection="things"):
-        if not db:
-            client = MongoClient()
-            db = client[database]
-        self.db = db
+    def __init__(self, mongo_uri, collection="things"):
+        client = MongoClient(mongo_uri)
+        self.db = client.get_default_database()
         self.things = self.db[collection]
 
     def put(self, thing):
