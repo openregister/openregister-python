@@ -9,6 +9,7 @@ client = MongoClient(mongo_uri)
 
 store = MongoStore(mongo_uri)
 
+
 def clear_db(mongo_uri, db_name):
     client = MongoClient(mongo_uri)
     client.drop_database(db_name)
