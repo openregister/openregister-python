@@ -1,4 +1,4 @@
-representations = ['csv', 'json', 'primitive', 'tsv', 'txt', 'yaml']
+representations = {}
 
-for r in representations:
-    m = __import__('thingstance.representations.'+r)
+for r in ['csv', 'json', 'primitive', 'tsv', 'txt', 'yaml']:
+    representations[r] = __import__('thingstance.representations.'+r)
