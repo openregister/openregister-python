@@ -26,6 +26,9 @@ def load(self, text,
         quoting=quoting,
         lineterminator=lineterminator)
 
+    if reader.fieldnames:
+        reader.fieldnames = [field.strip() for field in reader.fieldnames]
+
     try:
         self.primitive = next(reader)
     except StopIteration:

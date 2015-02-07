@@ -70,3 +70,17 @@ def test_postaladdress_from_csv():
     assert thing.addressRegion == "London"
     assert thing.postcode == "WC2B 6NH"
     assert thing.addressCountry == "GB"
+
+
+def test_trim_csv_headings():
+    thing = Thing()
+    thing.csv = (
+        '"  addressCountry","addressLocality  "," addressRegion","postcode"," streetAddress"\r\n'  # NOQA
+        '"GB","Holborn","London","WC2B 6NH","Aviation House, 125 Kingsway"\r\n'              # NOQA
+    )
+
+    assert thing.streetAddress == "Aviation House, 125 Kingsway"
+    assert thing.addressLocality == "Holborn"
+    assert thing.addressRegion == "London"
+    assert thing.postcode == "WC2B 6NH"
+    assert thing.addressCountry == "GB"
