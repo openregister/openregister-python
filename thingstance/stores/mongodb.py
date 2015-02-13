@@ -33,9 +33,15 @@ class MongoStore(Store):
         thing.primitive = doc
         return thing
 
-    def find(self, query={}, page=1, page_size=50):
+    def find(self, query={}, page=1, page_size=50,
+             paginate_if_longer_than=10000):
+
         total = self.things.find(query).count()
-        pages = math.ceil(total/page_size)
+        if total < paginate_if_longer_than:
+            page_size = total
+            pages = 0
+        else:
+            pages = math.ceil(total/page_size)
         if page == 1:
             start = page - 1
         else:
