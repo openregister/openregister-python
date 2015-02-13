@@ -100,16 +100,17 @@ def test_find():
     meta, things = store.find()
     assert meta['total'] == 4
     assert meta['page'] == 1
-    assert meta['pages'] == 1
+    assert meta['pages'] == 0
     assert len(things) == 4
 
-    meta, things = store.find(page_size=2)
+    meta, things = store.find(page_size=2, paginate_if_longer_than=2)
     assert meta['page'] == 1
     assert meta['pages'] == 2
     assert len(things) == 2
 
-    meta, things = store.find(page=2, page_size=2)
+    meta, things = store.find(page=2, page_size=2, paginate_if_longer_than=2)
     assert meta['page'] == 2
     assert meta['pages'] == 2
     assert len(things) == 2
+
     clear_db(mongo_uri, store.db.name)
