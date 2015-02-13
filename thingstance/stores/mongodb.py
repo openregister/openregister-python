@@ -39,7 +39,7 @@ class MongoStore(Store):
         total = self.things.find(query).count()
         if total < paginate_if_longer_than:
             page_size = total
-            pages = 0
+            pages = 1
         else:
             pages = math.ceil(total/page_size)
         if page == 1:

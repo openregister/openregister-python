@@ -100,7 +100,7 @@ def test_find():
     meta, things = store.find()
     assert meta['total'] == 4
     assert meta['page'] == 1
-    assert meta['pages'] == 0
+    assert meta['pages'] == 1
     assert len(things) == 4
 
     meta, things = store.find(page_size=2, paginate_if_longer_than=2)
