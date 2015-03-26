@@ -1,10 +1,11 @@
 import pytest
+import os
 from thingstance import Thing
 from thingstance.stores.mongodb import MongoStore
 
 from pymongo import MongoClient
-
-mongo_uri = 'mongodb://127.0.0.1:27017/testing_things'
+mongo_host = os.getenv('DB_PORT_27017_TCP_ADDR', '127.0.0.1')
+mongo_uri = 'mongodb://%s:27017/thingstance' % mongo_host
 client = MongoClient(mongo_uri)
 
 store = MongoStore(mongo_uri)
@@ -67,7 +68,7 @@ def test_get_latest_by_name():
 
 
 def test_own_database_and_collection():
-    mongo_uri = 'mongodb://127.0.0.1:27017/testing_named_things'
+    mongo_uri = 'mongodb://%s:27017/testing_named_things' % mongo_host
     collection = 'testing_collection'
     store = MongoStore(mongo_uri, collection=collection)
     assert store.db.name == 'testing_named_things'
@@ -76,7 +77,7 @@ def test_own_database_and_collection():
 
 
 def test_own_db():
-    mongo_uri = 'mongodb://127.0.0.1:27017/testing_other_things'
+    mongo_uri = 'mongodb://%s:27017/testing_other_things' % mongo_host
     store = MongoStore(mongo_uri)
     assert store.db.name == 'testing_other_things'
     clear_db(mongo_uri, store.db.name)
@@ -90,7 +91,7 @@ def test_idempotent_put():
 
 
 def test_find():
-    mongo_uri = 'mongodb://127.0.0.1:27017/testing_finding'
+    mongo_uri = 'mongodb://%s:27017/testing_finding' % mongo_host
     store = MongoStore(mongo_uri)
     store.put(Thing(name='one', tags={'tag1'}))
     store.put(Thing(name='two', tags={'tag2'}))
