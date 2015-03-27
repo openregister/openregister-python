@@ -1,4 +1,4 @@
-from ..thing import Thing
+from ..entry import Entry
 from ..writer import Writer
 import yaml
 
@@ -7,12 +7,12 @@ content_type = 'application/yaml'
 
 
 def load(self, text):
-    """Thing from YAML representation."""
+    """Entry from YAML representation."""
     self.__dict__ = yaml.load(text)
 
 
 def dump(self):
-    """Thing in YAML representation."""
+    """Entry in YAML representation."""
     return yaml.dump(self.primitive, default_flow_style=False)
 
 
@@ -23,11 +23,11 @@ class Writer(Writer):
         self.sep = sep
         self.sol = ""
 
-    def write(self, thing):
+    def write(self, entry):
         self.stream.write(
             self.sol
-            + yaml.dump([thing.primitive], default_flow_style=False))
+            + yaml.dump([entry.primitive], default_flow_style=False))
         self.sol = self.sep
 
 
-Thing.yaml = property(dump, load)
+Entry.yaml = property(dump, load)

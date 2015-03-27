@@ -3,23 +3,23 @@ from ..store import Store
 
 class MemoryStore(Store):
 
-    """Simple in-memory storage for Things."""
+    """Simple in-memory storage for Entries."""
 
-    things = {}
+    entries = {}
     latest = {}
 
-    def put(self, thing):
-        hash = thing.hash
-        self.things[hash] = thing
+    def put(self, entry):
+        hash = entry.hash
+        self.entries[hash] = entry
 
         try:
-            self.latest[thing.name] = thing
+            self.latest[entry.name] = entry
         except AttributeError:
             pass
 
     def get(self, hash):
         try:
-            return self.things[hash]
+            return self.entries[hash]
         except KeyError:
             return None
 

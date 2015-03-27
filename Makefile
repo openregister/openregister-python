@@ -6,13 +6,13 @@ test:
 	py.test -v -s
 
 coverage:
-	coverage run --source thingstance -m py.test && coverage report
+	coverage run --source entry -m py.test && coverage report
 
 coveralls:
-	py.test --cov thingstance tests/ --cov-report=term --cov-report=html
+	py.test --cov entry tests/ --cov-report=term --cov-report=html
 
 flake8:
-	flake8 thingstance tests
+	flake8 entry tests
 
 dist:
 	python3 setup.py sdist upload

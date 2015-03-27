@@ -1,9 +1,9 @@
 import io
-from thingstance import Thing
-from thingstance.representations.yaml import Writer
+from entry import Entry
+from entry.representations.yaml import Writer
 
 
-def test_writer_zero_things():
+def test_writer_zero_entries():
     out = io.StringIO()
     writer = Writer(out)
     writer.close()
@@ -12,23 +12,23 @@ def test_writer_zero_things():
     assert string == ""
 
 
-def test_writer_one_thing():
+def test_writer_one_entry():
     out = io.StringIO()
     writer = Writer(out)
-    thing = Thing(name="one")
-    writer.write(thing)
+    entry = Entry(name="one")
+    writer.write(entry)
     writer.close()
 
     string = out.getvalue()
     assert string == '- name: one\n'
 
 
-def test_writer_many_things():
+def test_writer_many_entries():
     out = io.StringIO()
     writer = Writer(out)
     for name in ['one', 'two', 'three']:
-        thing = Thing(name=name, text="hello world")
-        writer.write(thing)
+        entry = Entry(name=name, text="hello world")
+        writer.write(entry)
     writer.close()
 
     string = out.getvalue()

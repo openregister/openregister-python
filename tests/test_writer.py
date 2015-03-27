@@ -1,11 +1,11 @@
 import pytest
 import io
-from thingstance import Thing
-from thingstance.writer import Writer
+from entry import Entry
+from entry.writer import Writer
 
 
 def test_writer_interface():
-    thing = Thing()
+    entry = Entry()
     stream = io.StringIO()
 
     writer = Writer(stream)
@@ -13,6 +13,6 @@ def test_writer_interface():
     assert writer.stream == stream
 
     with pytest.raises(NotImplementedError):
-        writer.write(thing)
+        writer.write(entry)
 
     writer.close()

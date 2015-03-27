@@ -1,4 +1,4 @@
-from ..thing import Thing
+from ..entry import Entry
 from .csv import load as _load
 from .csv import dump as _dump
 from .csv import Writer as _Writer
@@ -8,7 +8,7 @@ content_type = 'text/tab-separated-values; charset=utf-8'
 
 
 def load(self, text, fieldnames=None):
-    """Thing from TSV representation."""
+    """Entry from TSV representation."""
     _load(self, text, delimiter="\t", quotechar="", lineterminator='\n')
 
 
@@ -24,4 +24,4 @@ class Writer(_Writer):
                          delimiter="\t", quotechar=None, lineterminator='\n')
 
 
-Thing.tsv = property(dump, load)
+Entry.tsv = property(dump, load)
