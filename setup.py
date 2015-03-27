@@ -12,7 +12,7 @@ def requirements():
     with open('./requirements.txt', 'r') as f:
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
-setup(name='entry',
+setup(name='openregister-entry',
       version='0.2.0',
       description='Entry model package',
       author='Openregister.org',
