@@ -1,6 +1,6 @@
 class Store(object):
 
-    """Interface for storage of Things."""
+    """Interface for storage of Entries."""
 
     def put(self, entry):
         raise NotImplementedError

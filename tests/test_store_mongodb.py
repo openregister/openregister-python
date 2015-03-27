@@ -68,18 +68,18 @@ def test_get_latest_by_name():
 
 
 def test_own_database_and_collection():
-    mongo_uri = 'mongodb://%s:27017/testing_named_things' % mongo_host
+    mongo_uri = 'mongodb://%s:27017/testing_named_entries' % mongo_host
     collection = 'testing_collection'
     store = MongoStore(mongo_uri, collection=collection)
-    assert store.db.name == 'testing_named_things'
-    assert store.things.name == collection
+    assert store.db.name == 'testing_named_entries'
+    assert store.entries.name == collection
     clear_db(mongo_uri, store.db.name)
 
 
 def test_own_db():
-    mongo_uri = 'mongodb://%s:27017/testing_other_things' % mongo_host
+    mongo_uri = 'mongodb://%s:27017/testing_other_entries' % mongo_host
     store = MongoStore(mongo_uri)
-    assert store.db.name == 'testing_other_things'
+    assert store.db.name == 'testing_other_entries'
     clear_db(mongo_uri, store.db.name)
 
 
@@ -98,20 +98,20 @@ def test_find():
     store.put(Entry(name='three', tags={}))
     store.put(Entry(name='four', tags={'tag2'}))
 
-    meta, things = store.find()
+    meta, entries = store.find()
     assert meta['total'] == 4
     assert meta['page'] == 1
     assert meta['pages'] == 1
-    assert len(things) == 4
+    assert len(entries) == 4
 
-    meta, things = store.find(page_size=2, paginate_if_longer_than=2)
+    meta, entries = store.find(page_size=2, paginate_if_longer_than=2)
     assert meta['page'] == 1
     assert meta['pages'] == 2
-    assert len(things) == 2
+    assert len(entries) == 2
 
-    meta, things = store.find(page=2, page_size=2, paginate_if_longer_than=2)
+    meta, entries = store.find(page=2, page_size=2, paginate_if_longer_than=2)
     assert meta['page'] == 2
     assert meta['pages'] == 2
-    assert len(things) == 2
+    assert len(entries) == 2
 
     clear_db(mongo_uri, store.db.name)

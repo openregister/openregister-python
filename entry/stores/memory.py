@@ -3,14 +3,14 @@ from ..store import Store
 
 class MemoryStore(Store):
 
-    """Simple in-memory storage for Things."""
+    """Simple in-memory storage for Entries."""
 
-    things = {}
+    entries = {}
     latest = {}
 
     def put(self, entry):
         hash = entry.hash
-        self.things[hash] = entry
+        self.entries[hash] = entry
 
         try:
             self.latest[entry.name] = entry
@@ -19,7 +19,7 @@ class MemoryStore(Store):
 
     def get(self, hash):
         try:
-            return self.things[hash]
+            return self.entries[hash]
         except KeyError:
             return None
 

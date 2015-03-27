@@ -1,6 +1,6 @@
 class Writer(object):
 
-    """Interface for writing a series of Things to a stream."""
+    """Interface for writing a series of Entries to a stream."""
 
     def __init__(self, stream):
         self.stream = stream

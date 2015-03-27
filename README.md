@@ -79,7 +79,7 @@ A search or other filter may return a list references to Entries represented as 
 
 ## List of Entries
 
-A bulk operation such as a backup, restore, search or other filter may use a list of things, represented as a JSON, YAML, Atom or other sequence of Entries.
+A bulk operation such as a backup, restore, search or other filter may use a list of entries, represented as a JSON, YAML, Atom or other sequence of Entries.
 
 ## Store
 

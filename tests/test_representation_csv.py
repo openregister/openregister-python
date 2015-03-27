@@ -6,13 +6,13 @@ def test_csv_content_type():
     assert content_type == "text/csv; charset=utf-8"
 
 
-def test_empty_thing_as_csv():
+def test_empty_entry_as_csv():
     entry = Entry()
     data = entry.csv
     assert data == ''
 
 
-def test_empty_thing_from_csv():
+def test_empty_entry_from_csv():
     entry = Entry()
     entry.csv = ('')
     assert entry.csv == ('')
