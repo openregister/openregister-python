@@ -12,14 +12,14 @@ def requirements():
     with open('./requirements.txt', 'r') as f:
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
-setup(name='thingstance',
-      version='0.1.0',
-      description='Thing model package',
-      author='Thingstance.org',
+setup(name='entry',
+      version='0.2.0',
+      description='Entry model package',
+      author='Openregister.org',
       author_email='paul.downey@whatfettle.com',
-      url='https://github.com/thingstance/thingstance',
-      download_url = 'https://github.com/thingstance/thingstance/tarball',
-      packages=find_packages(exclude=['tests']),
+      url='https://github.com/openregister/entry',
+      download_url='https://github.com/openregister/entry',
+      packages=['entry'],
       zip_safe=False,
       include_package_data=True,
       license='MIT',

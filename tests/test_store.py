@@ -1,17 +1,17 @@
 import pytest
-from thingstance import Thing
-from thingstance.store import Store
+from entry import Entry
+from entry.store import Store
 
 store = Store()
-thing = Thing()
+entry = Entry()
 
 
 def test_store_interface():
     with pytest.raises(NotImplementedError):
-        store.put(thing)
+        store.put(entry)
 
     with pytest.raises(NotImplementedError):
-        store.get(thing.hash)
+        store.get(entry.hash)
 
     with pytest.raises(NotImplementedError):
         store.get_latest()

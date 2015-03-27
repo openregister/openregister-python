@@ -1,14 +1,14 @@
-from thingstance import Thing
+from entry import Entry
 
 
 def test_tags_are_a_set():
-    thing = Thing(fields={'latitude', 'longitude'})
-    assert thing.fields == {'latitude', 'longitude'}
+    entry = Entry(fields={'latitude', 'longitude'})
+    assert entry.fields == {'latitude', 'longitude'}
 
-    thing = Thing(fields={'latitude', 'longitude', 'altitude'})
-    assert thing.fields == {'altitude', 'latitude', 'longitude'}
+    entry = Entry(fields={'latitude', 'longitude', 'altitude'})
+    assert entry.fields == {'altitude', 'latitude', 'longitude'}
 
-    thing = Thing(fields={
+    entry = Entry(fields={
         'longitude',
         'latitude',
         'latitude',
@@ -16,4 +16,4 @@ def test_tags_are_a_set():
         'latitude',
         'longitude'
     })
-    assert thing.fields == {'latitude', 'longitude'}
+    assert entry.fields == {'latitude', 'longitude'}

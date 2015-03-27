@@ -1,6 +1,6 @@
 import io
 import csv
-from ..thing import Thing
+from ..entry import Entry
 from ..writer import Writer
 
 
@@ -12,7 +12,7 @@ def load(self, text,
          quotechar='"',
          delimiter=",",
          quoting=csv.QUOTE_MINIMAL):
-    """Thing from CSV representation."""
+    """Entry from CSV representation."""
 
     f = io.StringIO(text)
 
@@ -56,12 +56,12 @@ class Writer(Writer):
 
         self.writer.writeheader()
 
-    def write(self, thing):
-        self.writer.writerow(thing.primitive)
+    def write(self, entry):
+        self.writer.writerow(entry.primitive)
 
 
 def dump(self, **kwargs):
-    """CSV representation of a thing."""
+    """CSV representation of a entry."""
 
     fieldnames = sorted(list(self.primitive.keys()))
 
@@ -74,4 +74,4 @@ def dump(self, **kwargs):
     return text
 
 
-Thing.csv = property(dump, load)
+Entry.csv = property(dump, load)

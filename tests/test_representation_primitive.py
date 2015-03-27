@@ -1,39 +1,39 @@
-from thingstance import Thing
+from entry import Entry
 
 
-def test_empty_thing_as_primitive():
-    thing = Thing()
-    data = thing.primitive
+def test_empty_entry_as_primitive():
+    entry = Entry()
+    data = entry.primitive
     assert data == {}
 
 
-def test_empty_thing_from_primitive():
-    thing = Thing()
-    thing.primitive = {}
-    assert thing.primitive == {}
+def test_empty_entry_from_primitive():
+    entry = Entry()
+    entry.primitive = {}
+    assert entry.primitive == {}
 
 
 def test_ignore_private_as_primitive():
-    thing = Thing()
-    thing._zero = "to be removed"
-    thing.one = "one value"
-    thing._two = "should be removed"
-    thing.two = "two value"
-    thing._three = "three"
+    entry = Entry()
+    entry._zero = "to be removed"
+    entry.one = "one value"
+    entry._two = "should be removed"
+    entry.two = "two value"
+    entry._three = "three"
 
-    data = thing.primitive
+    data = entry.primitive
     assert data == ({"one": "one value", "two": "two value"})
 
 
 def test_postaladdress_as_primitive():
-    thing = Thing()
-    thing.streetAddress = "Aviation House, 125 Kingsway"
-    thing.addressLocality = "Holborn"
-    thing.addressRegion = "London"
-    thing.postcode = "WC2B 6NH"
-    thing.addressCountry = "GB"
+    entry = Entry()
+    entry.streetAddress = "Aviation House, 125 Kingsway"
+    entry.addressLocality = "Holborn"
+    entry.addressRegion = "London"
+    entry.postcode = "WC2B 6NH"
+    entry.addressCountry = "GB"
 
-    assert thing.primitive == {
+    assert entry.primitive == {
         'addressCountry': 'GB',
         'addressLocality': 'Holborn',
         'addressRegion': 'London',
@@ -42,32 +42,32 @@ def test_postaladdress_as_primitive():
 
 
 def test_postaladdress_from_primitive():
-    thing = Thing()
-    thing.primitive = {
+    entry = Entry()
+    entry.primitive = {
         'addressCountry': 'GB',
         'addressLocality': 'Holborn',
         'addressRegion': 'London',
         'postcode': 'WC2B 6NH',
         'streetAddress': 'Aviation House, 125 Kingsway'}
 
-    assert thing.streetAddress == "Aviation House, 125 Kingsway"
-    assert thing.addressLocality == "Holborn"
-    assert thing.addressRegion == "London"
-    assert thing.postcode == "WC2B 6NH"
-    assert thing.addressCountry == "GB"
+    assert entry.streetAddress == "Aviation House, 125 Kingsway"
+    assert entry.addressLocality == "Holborn"
+    assert entry.addressRegion == "London"
+    assert entry.postcode == "WC2B 6NH"
+    assert entry.addressCountry == "GB"
 
 
 def test_set_of_tags_as_primitive():
-    thing = Thing(name='foo', fields={'z', 'b', 'c', 'z'})
-    assert thing.primitive == {
+    entry = Entry(name='foo', fields={'z', 'b', 'c', 'z'})
+    assert entry.primitive == {
         'fields': ['b', 'c', 'z'],
         'name': 'foo'}
 
 
 def test_set_of_tags_from_primitive():
-    thing = Thing()
-    thing.primitive = {
+    entry = Entry()
+    entry.primitive = {
         'fields': ['a', 'b', 'c'],
         'name': 'foo'}
-    assert thing.name == 'foo'
-    assert thing.fields == ['a', 'b', 'c']
+    assert entry.name == 'foo'
+    assert entry.fields == ['a', 'b', 'c']

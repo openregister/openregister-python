@@ -1,18 +1,18 @@
 import pytest
-from thingstance import Thing
+from entry import Entry
 
 
 def test_new_empty_thing():
-    thing = Thing()
+    entry = Entry()
 
     with pytest.raises(AttributeError):
-        thing.zog
+        entry.zog
 
 
 def test_new_thing_from_params():
-    thing = Thing(foo="Foo Value", bar="Bar Value")
-    assert thing.foo == "Foo Value"
-    assert thing.bar == "Bar Value"
+    entry = Entry(foo="Foo Value", bar="Bar Value")
+    assert entry.foo == "Foo Value"
+    assert entry.bar == "Bar Value"
 
     with pytest.raises(AttributeError):
-        thing.zog
+        entry.zog

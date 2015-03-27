@@ -1,4 +1,4 @@
-from ..thing import Thing
+from ..entry import Entry
 from ..writer import Writer
 import json
 
@@ -7,7 +7,7 @@ content_type = 'application/json'
 
 
 def load(self, text):
-    """Thing from JSON representation."""
+    """Entry from JSON representation."""
     self.__dict__ = json.loads(text)
 
 
@@ -28,12 +28,12 @@ class Writer(Writer):
         self.stream.write(start)
         self.sol = ""
 
-    def write(self, thing):
-        self.stream.write(self.sol + dump(thing, eol=""))
+    def write(self, entry):
+        self.stream.write(self.sol + dump(entry, eol=""))
         self.sol = self.sep
 
     def close(self):
         self.stream.write(self.end)
 
 
-Thing.json = property(dump, load)
+Entry.json = property(dump, load)

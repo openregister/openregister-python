@@ -1,6 +1,6 @@
-from thingstance import Thing
+from entry import Entry
 
-# to confirm the hash of a Thing matches the git-hash value:
+# to confirm the hash of a Entry matches the git-hash value:
 #
 # $ /bin/echo '{}' > x
 # $ git add x ; git commit -m"x" x
@@ -12,19 +12,19 @@ from thingstance import Thing
 # bin/base32 $(git hash-object x)
 
 
-def test_thing_hash():
+def test_entry_hash():
 
-    thing = Thing()
-    assert thing.json == '{}\n'
-    assert thing.hash == "0967ef424bce6791893e9a57bb952f80fd536e93"
-    assert thing.hashkey == "bft66qslzztzdcj6tjl3xfjpqd6vg3ut"
+    entry = Entry()
+    assert entry.json == '{}\n'
+    assert entry.hash == "0967ef424bce6791893e9a57bb952f80fd536e93"
+    assert entry.hashkey == "bft66qslzztzdcj6tjl3xfjpqd6vg3ut"
 
-    thing.foo = "Foo Value"
-    assert thing.json == '{"foo": "Foo Value"}\n'
-    assert thing.hash == "5372dbe0556e453e96000909f45ab626f155bd9f"
-    assert thing.hashkey == "knznxycvnzct5fqabee7iwvwe3yvlpm7"
+    entry.foo = "Foo Value"
+    assert entry.json == '{"foo": "Foo Value"}\n'
+    assert entry.hash == "5372dbe0556e453e96000909f45ab626f155bd9f"
+    assert entry.hashkey == "knznxycvnzct5fqabee7iwvwe3yvlpm7"
 
-    thing.bar = "こんにちは、元気ですか"
-    assert thing.json == '{"bar": "こんにちは、元気ですか", "foo": "Foo Value"}\n'
-    assert thing.hash == "f5605fd1dd76899ba506f6d32553f31f3b676b19"
-    assert thing.hashkey == "6vqf7uo5o2ezxjig63jsku7td45wo2yz"
+    entry.bar = "こんにちは、元気ですか"
+    assert entry.json == '{"bar": "こんにちは、元気ですか", "foo": "Foo Value"}\n'
+    assert entry.hash == "f5605fd1dd76899ba506f6d32553f31f3b676b19"
+    assert entry.hashkey == "6vqf7uo5o2ezxjig63jsku7td45wo2yz"

@@ -1,77 +1,77 @@
-from thingstance import Thing
-from thingstance.stores.memory import MemoryStore
+from entry import Entry
+from entry.stores.memory import MemoryStore
 
 store = MemoryStore()
 
 
 def test_not_found():
-    thing = store.get('invalid hash')
-    assert thing is None
+    entry = store.get('invalid hash')
+    assert entry is None
 
 
 def test_simple_store():
     text = 'This is a test'
-    thing = Thing(text=text)
-    store.put(thing)
+    entry = Entry(text=text)
+    store.put(entry)
 
-    got = store.get(thing.hash)
-    assert thing.hash == got.hash
-    assert thing.text == got.text
+    got = store.get(entry.hash)
+    assert entry.hash == got.hash
+    assert entry.text == got.text
 
 
 def test_store():
-    thing = Thing()
-    empty_hash = thing.hash
-    store.put(thing)
+    entry = Entry()
+    empty_hash = entry.hash
+    store.put(entry)
 
-    thing = Thing(text='Foo Value')
-    foo_hash = thing.hash
-    store.put(thing)
+    entry = Entry(text='Foo Value')
+    foo_hash = entry.hash
+    store.put(entry)
 
-    thing = Thing(text='Bar Value')
-    bar_hash = thing.hash
-    store.put(thing)
+    entry = Entry(text='Bar Value')
+    bar_hash = entry.hash
+    store.put(entry)
 
-    thing = store.get(empty_hash)
-    assert thing.hash == empty_hash
+    entry = store.get(empty_hash)
+    assert entry.hash == empty_hash
 
-    thing = store.get(foo_hash)
-    assert thing.hash == foo_hash
-    assert thing.text == 'Foo Value'
+    entry = store.get(foo_hash)
+    assert entry.hash == foo_hash
+    assert entry.text == 'Foo Value'
 
-    thing = store.get(bar_hash)
-    assert thing.hash == bar_hash
-    assert thing.text == 'Bar Value'
+    entry = store.get(bar_hash)
+    assert entry.hash == bar_hash
+    assert entry.text == 'Bar Value'
 
 
 def test_get_latest_by_name():
-    store.put(Thing(name="toves", text='Slithy'))
-    store.put(Thing(name="borogoves", text='Mimsy'))
+    store.put(Entry(name="toves", text='Slithy'))
+    store.put(Entry(name="borogoves", text='Mimsy'))
 
-    thing = store.get_latest(name="toves")
-    assert thing.name == "toves"
-    assert thing.text == "Slithy"
+    entry = store.get_latest(name="toves")
+    assert entry.name == "toves"
+    assert entry.text == "Slithy"
 
     v1 = store.get_latest(name="borogoves")
     assert v1.name == "borogoves"
     assert v1.text == "Mimsy"
 
-    v2 = Thing(name="borogoves", text='All mimsy')
+    v2 = Entry(name="borogoves", text='All mimsy')
     store.put(v2)
 
-    thing = store.get_latest(name="borogoves")
-    assert thing.hash == v2.hash
-    assert thing.name == "borogoves"
-    assert thing.text == "All mimsy"
+    entry = store.get_latest(name="borogoves")
+    assert entry.hash == v2.hash
+    assert entry.name == "borogoves"
+    assert entry.text == "All mimsy"
 
-    thing = store.get(v1.hash)
-    assert thing.hash == v1.hash
-    assert thing.name == "borogoves"
-    assert thing.text == "Mimsy"
+    entry = store.get(v1.hash)
+    assert entry.hash == v1.hash
+    assert entry.name == "borogoves"
+    assert entry.text == "Mimsy"
 
 
 def test_idempotent_put():
-    thing = Thing(text='Idempotent?')
-    store.put(thing)
-    store.put(thing)
-    store.put(thing)
+    entry = Entry(text='Idempotent?')
+    store.put(entry)
+    store.put(entry)
+    store.put(entry)

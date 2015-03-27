@@ -1,6 +1,6 @@
 import math
 from ..store import Store
-from ..thing import Thing
+from ..entry import Entry
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
@@ -14,9 +14,9 @@ class MongoStore(Store):
         self.db = client.get_default_database()
         self.things = self.db[collection]
 
-    def put(self, thing):
-        doc = thing.primitive
-        doc['_id'] = thing.hash
+    def put(self, entry):
+        doc = entry.primitive
+        doc['_id'] = entry.hash
         try:
             self.things.insert(doc)
         except DuplicateKeyError:
@@ -29,9 +29,9 @@ class MongoStore(Store):
 
         del doc['_id']
 
-        thing = Thing()
-        thing.primitive = doc
-        return thing
+        entry = Entry()
+        entry.primitive = doc
+        return entry
 
     def find(self, query={}, page=1, page_size=50,
              paginate_if_longer_than=10000):
@@ -48,7 +48,7 @@ class MongoStore(Store):
             start = (page - 1) * page_size
 
         cursor = self.things.find(query)[start: start+page_size]
-        things = [Thing(**record) for record in cursor]
+        things = [Entry(**record) for record in cursor]
 
         meta = {
             "query": query,

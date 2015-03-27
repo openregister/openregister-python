@@ -1,6 +1,6 @@
 import io
-from thingstance import Thing
-from thingstance.representations.json import Writer
+from entry import Entry
+from entry.representations.json import Writer
 
 
 def test_writer_zero_things():
@@ -15,8 +15,8 @@ def test_writer_zero_things():
 def test_writer_one_thing():
     out = io.StringIO()
     writer = Writer(out)
-    thing = Thing(name="one")
-    writer.write(thing)
+    entry = Entry(name="one")
+    writer.write(entry)
     writer.close()
 
     string = out.getvalue()
@@ -27,8 +27,8 @@ def test_writer_many_things():
     out = io.StringIO()
     writer = Writer(out)
     for name in ['one', 'two', 'three']:
-        thing = Thing(name=name)
-        writer.write(thing)
+        entry = Entry(name=name)
+        writer.write(entry)
     writer.close()
 
     string = out.getvalue()

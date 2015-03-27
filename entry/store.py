@@ -2,7 +2,7 @@ class Store(object):
 
     """Interface for storage of Things."""
 
-    def put(self, thing):
+    def put(self, entry):
         raise NotImplementedError
 
     def get(self, hash):

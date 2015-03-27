@@ -1,6 +1,6 @@
 import io
-from thingstance import Thing
-from thingstance.representations.csv import Writer
+from entry import Entry
+from entry.representations.csv import Writer
 
 
 def test_writer_zero_things():
@@ -24,8 +24,8 @@ def test_writer_zero_things_titles():
 def test_writer_one_thing():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name"])
-    thing = Thing(name="one")
-    writer.write(thing)
+    entry = Entry(name="one")
+    writer.write(entry)
     writer.close()
 
     string = out.getvalue()
@@ -36,8 +36,8 @@ def test_writer_many_things():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name", "text"])
     for name in ['one', 'two', 'three']:
-        thing = Thing(name=name, text="hello world")
-        writer.write(thing)
+        entry = Entry(name=name, text="hello world")
+        writer.write(entry)
     writer.close()
 
     string = out.getvalue()
