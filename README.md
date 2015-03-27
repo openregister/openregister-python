@@ -1,6 +1,6 @@
 # Openregister entry
 
-[![Build Status](https://travis-ci.org/openregister/entry.svg?branch=master)](https://travis-ci.org/openregister/entry.svg) [![Coverage Status](https://img.shields.io/coveralls/openregister/entry.svg)](https://coveralls.io/r/openregister/entry)
+[![Build Status](https://travis-ci.org/openregister/entry.svg?branch=master)](https://travis-ci.org/openregister/entry) [![Coverage Status](https://img.shields.io/coveralls/openregister/entry.svg)](https://coveralls.io/r/openregister/entry)
 
 A uniform, immutable data store, addressable by its contents, with consistent properties and types.
 
