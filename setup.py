@@ -24,10 +24,10 @@ setup(name='openregister-entry',
       include_package_data=True,
       license='MIT',
       platforms='any',
-      classifiers=(
+      classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.4',
-        ),
+        ],
       install_requires=requirements(),
 )
