@@ -11,17 +11,18 @@ def load(self, text):
     self.__dict__ = json.loads(text)
 
 
-def dump(self, eol="\n"):
+def dump(self):
     """JSON representation."""
     return json.dumps(
         self.primitive,
         sort_keys=True,
-        ensure_ascii=False) + eol
+        ensure_ascii=False,
+        separators=(',', ':'))
 
 
 class Writer(Writer):
     """Write JSON array."""
-    def __init__(self, stream, start="[", sep=",\n", end="]\n"):
+    def __init__(self, stream, start="[", sep=",", end="]"):
         self.stream = stream
         self.sep = sep
         self.end = end
@@ -29,7 +30,7 @@ class Writer(Writer):
         self.sol = ""
 
     def write(self, entry):
-        self.stream.write(self.sol + dump(entry, eol=""))
+        self.stream.write(self.sol + dump(entry))
         self.sol = self.sep
 
     def close(self):

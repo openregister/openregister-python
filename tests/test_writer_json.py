@@ -9,7 +9,7 @@ def test_writer_zero_entries():
     writer.close()
 
     string = out.getvalue()
-    assert string == "[]\n"
+    assert string == "[]"
 
 
 def test_writer_one_entry():
@@ -20,7 +20,7 @@ def test_writer_one_entry():
     writer.close()
 
     string = out.getvalue()
-    assert string == '[{"name": "one"}]\n'
+    assert string == '[{"name":"one"}]'
 
 
 def test_writer_many_entries():
@@ -33,6 +33,6 @@ def test_writer_many_entries():
 
     string = out.getvalue()
     assert string == ('['
-                      '{"name": "one"},\n'
-                      '{"name": "two"},\n'
-                      '{"name": "three"}]\n')
+                      '{"name":"one"},'
+                      '{"name":"two"},'
+                      '{"name":"three"}]')
