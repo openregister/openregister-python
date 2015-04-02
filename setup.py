@@ -13,7 +13,7 @@ def requirements():
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
 setup(name='openregister-entry',
-      version='0.2.0',
+      version='0.3.0',
       description='Entry model package',
       author='Openregister.org',
       author_email='paul.downey@whatfettle.com',
