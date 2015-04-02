@@ -10,23 +10,23 @@ def test_json_content_type():
 def test_empty_entry_as_json():
     entry = Entry()
     data = entry.json
-    assert data == '{}\n'
+    assert data == '{}'
 
 
 def test_empty_entry_from_json():
     entry = Entry()
     entry.json = ('{}')
-    assert entry.json == ('{}\n')
+    assert entry.json == ('{}')
 
 
 def test_empty_entry_from_json_with_whitespace():
     entry = Entry()
 
-    entry.json = ('{}\n')
-    assert entry.json == ('{}\n')
+    entry.json = ('{}')
+    assert entry.json == ('{}')
 
-    entry.json = ('   {  }\n\n')
-    assert entry.json == ('{}\n')
+    entry.json = ('   {  }')
+    assert entry.json == ('{}')
 
 
 def test_unserializable__as_json():
@@ -44,7 +44,7 @@ def test_ignore_private_as_json():
     entry._three = "three"
 
     data = entry.json
-    assert data == ('{"one": "one value", "two": "two value"}\n')
+    assert data == ('{"one":"one value","two":"two value"}')
 
 
 def test_postaladdress_as_json():
@@ -56,20 +56,20 @@ def test_postaladdress_as_json():
     entry.addressCountry = "GB"
 
     data = entry.json
-    assert data == ('{"addressCountry": "GB",'
-                    ' "addressLocality": "Holborn",'
-                    ' "addressRegion": "London",'
-                    ' "postcode": "WC2B 6NH",'
-                    ' "streetAddress": "Aviation House, 125 Kingsway"}\n')
+    assert data == ('{"addressCountry":"GB",'
+                    '"addressLocality":"Holborn",'
+                    '"addressRegion":"London",'
+                    '"postcode":"WC2B 6NH",'
+                    '"streetAddress":"Aviation House, 125 Kingsway"}')
 
 
 def test_postaladdress_from_json():
     entry = Entry()
-    entry.json = ('{"addressCountry": "GB",'
-                  ' "addressLocality": "Holborn",'
-                  ' "addressRegion": "London",'
-                  ' "postcode": "WC2B 6NH",'
-                  ' "streetAddress": "Aviation House, 125 Kingsway"}\n')
+    entry.json = ('{"addressCountry":"GB",'
+                  '"addressLocality":"Holborn",'
+                  '"addressRegion":"London",'
+                  '"postcode":"WC2B 6NH",'
+                  '"streetAddress":"Aviation House, 125 Kingsway"}')
 
     assert entry.streetAddress == "Aviation House, 125 Kingsway"
     assert entry.addressLocality == "Holborn"
@@ -81,11 +81,11 @@ def test_postaladdress_from_json():
 def test_set_of_tags_as_json():
     entry = Entry(name='foo', fields={'a', 'b', 'c', 'a'})
     data = entry.json
-    assert data == ('{"fields": ["a", "b", "c"], "name": "foo"}\n')
+    assert data == ('{"fields":["a","b","c"],"name":"foo"}')
 
 
 def test_set_of_tags_from_json():
     entry = Entry()
-    entry.json = ('{"fields": ["a", "b", "c"], "name": "foo"}')
+    entry.json = ('{"fields":["a","b","c"],"name":"foo"}')
     assert entry.name == 'foo'
     assert entry.fields == ['a', 'b', 'c']

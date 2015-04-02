@@ -15,16 +15,16 @@ from entry import Entry
 def test_entry_hash():
 
     entry = Entry()
-    assert entry.json == '{}\n'
-    assert entry.hash == "0967ef424bce6791893e9a57bb952f80fd536e93"
-    assert entry.hashkey == "bft66qslzztzdcj6tjl3xfjpqd6vg3ut"
+    assert entry.json == '{}'
+    assert entry.hash == "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+    assert entry.hashkey == "tytn73vw4za2gpnojfqrsyrvxw4wlmq3"
 
     entry.foo = "Foo Value"
-    assert entry.json == '{"foo": "Foo Value"}\n'
-    assert entry.hash == "5372dbe0556e453e96000909f45ab626f155bd9f"
-    assert entry.hashkey == "knznxycvnzct5fqabee7iwvwe3yvlpm7"
+    assert entry.json == '{"foo":"Foo Value"}'
+    assert entry.hash == "257b86bf0b88dbf40cacff2b649f763d585df662"
+    assert entry.hashkey == "ev5ynpylrdn7idfm74vwjh3whvmf35tc"
 
     entry.bar = "こんにちは、元気ですか"
-    assert entry.json == '{"bar": "こんにちは、元気ですか", "foo": "Foo Value"}\n'
-    assert entry.hash == "f5605fd1dd76899ba506f6d32553f31f3b676b19"
-    assert entry.hashkey == "6vqf7uo5o2ezxjig63jsku7td45wo2yz"
+    assert entry.json == '{"bar":"こんにちは、元気ですか","foo":"Foo Value"}'
+    assert entry.hash == "d8d2a8d65415145e4ca092af80cc4c6bfa34519c"
+    assert entry.hashkey == "3djkrvsucukf4tfaskxybtcmnp5dium4"
