@@ -58,3 +58,8 @@ class MongoStore(Store):
         }
 
         return meta, entries
+
+    def find_all(self, query):
+        cursor = self.entries.find(query)
+        entries = [Entry(**record) for record in cursor]
+        return entries

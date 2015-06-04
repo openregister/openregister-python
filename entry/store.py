@@ -13,3 +13,6 @@ class Store(object):
 
     def find(self, query={}, page=1, page_size=50):
         raise NotImplementedError
+
+    def find_all(self, query={}):
+        raise NotImplementedError
