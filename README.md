@@ -43,8 +43,8 @@ Requires Python 3.4:
 
     $ mkvirtualenv openregister
     $ workon openregister
-    (openregister) pip3 install -r requirements.txt
-    (openregister)$ make
+    (openregister) make init
+    (openregister) make
 
 The MongoDB tests require mongo to be running:
 
