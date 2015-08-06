@@ -93,3 +93,7 @@ Requires Python 3.4:
     $ workon openregister
     (openregister) pip3 install -r requirements.txt
     (openregister)$ make
+
+The MongoDB tests require mongo to be running:
+
+    $ mongod
