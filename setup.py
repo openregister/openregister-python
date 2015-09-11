@@ -9,7 +9,7 @@ if os.environ.get('USER','') == 'vagrant':
 from setuptools import setup, find_packages
 
 def requirements():
-    with open('./requirements.txt', 'r') as f:
+    with open('./requirements/production.txt', 'r') as f:
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
 setup(name='openregister-entry',
