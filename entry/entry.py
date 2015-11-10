@@ -15,3 +15,7 @@ class Entry(object):
     def hashkey(self):
         """The hash value as a RFC 3548 Base 32 encoded string."""
         return base32_encode(self.hash)
+
+    @property
+    def keys(self):
+        return sorted(list(self.primitive.keys()))

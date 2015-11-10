@@ -5,12 +5,17 @@ from ..writer import Writer
 
 
 content_type = 'text/csv; charset=utf-8'
+escapechar = '\\'
+lineterminator = '\r\n'
+quotechar = '"'
+delimiter = ","
 
 
 def load(self, text,
          lineterminator='\r\n',
          quotechar='"',
          delimiter=",",
+         escapechar=escapechar,
          quoting=csv.QUOTE_MINIMAL):
     """Entry from CSV representation."""
 
@@ -38,9 +43,10 @@ def load(self, text,
 class Writer(Writer):
     """Write CSV of entries."""
     def __init__(self, stream, fieldnames,
-                 delimiter=",",
-                 lineterminator='\r\n',
-                 quotechar='"',
+                 delimiter=delimiter,
+                 lineterminator=lineterminator,
+                 quotechar=quotechar,
+                 escapechar=escapechar,
                  quoting=csv.QUOTE_ALL):
 
         if not quotechar:
@@ -51,6 +57,7 @@ class Writer(Writer):
             fieldnames=fieldnames,
             delimiter=delimiter,
             lineterminator=lineterminator,
+            escapechar=escapechar,
             quotechar=quotechar,
             quoting=quoting)
 
@@ -63,10 +70,8 @@ class Writer(Writer):
 def dump(self, **kwargs):
     """CSV representation of a entry."""
 
-    fieldnames = sorted(list(self.primitive.keys()))
-
     f = io.StringIO()
-    w = Writer(f, fieldnames, **kwargs)
+    w = Writer(f, self.keys, **kwargs)
     w.write(self)
     text = f.getvalue().lstrip()
     f.close()

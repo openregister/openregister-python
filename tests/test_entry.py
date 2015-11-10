@@ -16,3 +16,13 @@ def test_new_entry_from_params():
 
     with pytest.raises(AttributeError):
         entry.zog
+
+
+def test_entry_sorted_keys():
+    entry = Entry(c="two", a="zero", d="three", b="one", e="four")
+    keys = entry.keys
+    assert keys[0] == "a"
+    assert keys[1] == "b"
+    assert keys[2] == "c"
+    assert keys[3] == "d"
+    assert keys[4] == "e"
