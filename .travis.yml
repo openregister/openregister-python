@@ -12,10 +12,3 @@ script:
 - make all
 after_success:
 - coveralls --ignore-errors
-deploy:
-  provider: pypi
-  user: jakob.grunig
-  password:
-    secure: HwJbr1np2I9YAl0JgYvu6JwmFKGy/xhgX7htfqT/ViKntwdh/RwJ0FT+ojvzv80doGstixUHLwBqWmcfvnBmCWCgKlRRHXwzHT7ZvGOEPH+lqqe2Hcm7IcNOUD2zo+2CaI3Rqk3N5fpqDTTGA7veqDcHZCvmPOJhPIv9RR9wFZI=
-  on:
-    tags: true
