@@ -19,3 +19,7 @@ class Entry(object):
     @property
     def keys(self):
         return sorted(list(self.primitive.keys()))
+
+    @property
+    def values(self):
+        return (self.__dict__[key] for key in self.keys)

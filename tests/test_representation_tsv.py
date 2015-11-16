@@ -20,6 +20,24 @@ def test_simple_as_tsv():
     )
 
 
+def test_newlines_as_tsv():
+    entry = Entry()
+    entry.a = "A value:\ncontaining a newline"
+    assert entry.tsv == (
+        'a\n'
+        'A value:\\ncontaining a newline\n'
+    )
+
+
+def test_newlines_from_tsv():
+    entry = Entry()
+    entry.tsv = (
+        'a\n'
+        'A value:\\ncontaining a newline\n'
+    )
+    assert entry.a == 'A value:\ncontaining a newline'
+
+
 def test_ignore_private_as_tsv():
     entry = Entry()
     entry._zero = "to be removed"
