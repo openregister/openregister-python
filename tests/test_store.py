@@ -1,17 +1,17 @@
 import pytest
-from entry import Entry
-from entry.store import Store
+from openregister import Item
+from openregister.store import Store
 
 store = Store()
-entry = Entry()
+item = Item()
 
 
 def test_store_interface():
     with pytest.raises(NotImplementedError):
-        store.put(entry)
+        store.put(item)
 
     with pytest.raises(NotImplementedError):
-        store.get(entry.hash)
+        store.get(item.hash)
 
     with pytest.raises(NotImplementedError):
         store.get_latest()

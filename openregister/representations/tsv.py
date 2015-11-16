@@ -1,4 +1,4 @@
-from ..entry import Entry
+from ..item import Item
 from ..writer import Writer
 
 content_type = 'text/tab-separated-values; charset=utf-8'
@@ -30,7 +30,7 @@ def load_line(line):
 
 
 def load(self, text, fieldnames=None):
-    """Entry from TSV representation."""
+    """Item from TSV representation."""
     lines = text.split('\n')
     fieldnames = load_line(lines[0])
     values = load_line(lines[1])
@@ -54,8 +54,8 @@ class Writer(Writer):
         self.stream = stream
         self.stream.write(dump_line(fieldnames))
 
-    def write(self, entry):
-        self.stream.write(dump_line(entry.values))
+    def write(self, item):
+        self.stream.write(dump_line(item.values))
 
 
-Entry.tsv = property(dump, load)
+Item.tsv = property(dump, load)

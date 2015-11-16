@@ -1,61 +1,61 @@
 import pytest
-from entry import Entry
-from entry.representations.json import content_type
+from openregister import Item
+from openregister.representations.json import content_type
 
 
 def test_json_content_type():
     assert content_type == "application/json"
 
 
-def test_empty_entry_as_json():
-    entry = Entry()
-    data = entry.json
+def test_empty_item_as_json():
+    item = Item()
+    data = item.json
     assert data == '{}'
 
 
-def test_empty_entry_from_json():
-    entry = Entry()
-    entry.json = ('{}')
-    assert entry.json == ('{}')
+def test_empty_item_from_json():
+    item = Item()
+    item.json = ('{}')
+    assert item.json == ('{}')
 
 
-def test_empty_entry_from_json_with_whitespace():
-    entry = Entry()
+def test_empty_item_from_json_with_whitespace():
+    item = Item()
 
-    entry.json = ('{}')
-    assert entry.json == ('{}')
+    item.json = ('{}')
+    assert item.json == ('{}')
 
-    entry.json = ('   {  }')
-    assert entry.json == ('{}')
+    item.json = ('   {  }')
+    assert item.json == ('{}')
 
 
 def test_unserializable__as_json():
-    entry = Entry(name='foo', unserializable=pytest)
+    item = Item(name='foo', unserializable=pytest)
     with pytest.raises(AttributeError):
-        entry.json
+        item.json
 
 
 def test_ignore_private_as_json():
-    entry = Entry()
-    entry._zero = "to be removed"
-    entry.one = "one value"
-    entry._two = "should be removed"
-    entry.two = "two value"
-    entry._three = "three"
+    item = Item()
+    item._zero = "to be removed"
+    item.one = "one value"
+    item._two = "should be removed"
+    item.two = "two value"
+    item._three = "three"
 
-    data = entry.json
+    data = item.json
     assert data == ('{"one":"one value","two":"two value"}')
 
 
 def test_postaladdress_as_json():
-    entry = Entry()
-    entry.streetAddress = "Aviation House, 125 Kingsway"
-    entry.addressLocality = "Holborn"
-    entry.addressRegion = "London"
-    entry.postcode = "WC2B 6NH"
-    entry.addressCountry = "GB"
+    item = Item()
+    item.streetAddress = "Aviation House, 125 Kingsway"
+    item.addressLocality = "Holborn"
+    item.addressRegion = "London"
+    item.postcode = "WC2B 6NH"
+    item.addressCountry = "GB"
 
-    data = entry.json
+    data = item.json
     assert data == ('{"addressCountry":"GB",'
                     '"addressLocality":"Holborn",'
                     '"addressRegion":"London",'
@@ -64,28 +64,28 @@ def test_postaladdress_as_json():
 
 
 def test_postaladdress_from_json():
-    entry = Entry()
-    entry.json = ('{"addressCountry":"GB",'
-                  '"addressLocality":"Holborn",'
-                  '"addressRegion":"London",'
-                  '"postcode":"WC2B 6NH",'
-                  '"streetAddress":"Aviation House, 125 Kingsway"}')
+    item = Item()
+    item.json = ('{"addressCountry":"GB",'
+                 '"addressLocality":"Holborn",'
+                 '"addressRegion":"London",'
+                 '"postcode":"WC2B 6NH",'
+                 '"streetAddress":"Aviation House, 125 Kingsway"}')
 
-    assert entry.streetAddress == "Aviation House, 125 Kingsway"
-    assert entry.addressLocality == "Holborn"
-    assert entry.addressRegion == "London"
-    assert entry.postcode == "WC2B 6NH"
-    assert entry.addressCountry == "GB"
+    assert item.streetAddress == "Aviation House, 125 Kingsway"
+    assert item.addressLocality == "Holborn"
+    assert item.addressRegion == "London"
+    assert item.postcode == "WC2B 6NH"
+    assert item.addressCountry == "GB"
 
 
 def test_set_of_tags_as_json():
-    entry = Entry(name='foo', fields={'a', 'b', 'c', 'a'})
-    data = entry.json
+    item = Item(name='foo', fields={'a', 'b', 'c', 'a'})
+    data = item.json
     assert data == ('{"fields":["a","b","c"],"name":"foo"}')
 
 
 def test_set_of_tags_from_json():
-    entry = Entry()
-    entry.json = ('{"fields":["a","b","c"],"name":"foo"}')
-    assert entry.name == 'foo'
-    assert entry.fields == ['a', 'b', 'c']
+    item = Item()
+    item.json = ('{"fields":["a","b","c"],"name":"foo"}')
+    assert item.name == 'foo'
+    assert item.fields == ['a', 'b', 'c']

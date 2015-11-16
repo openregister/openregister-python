@@ -1,6 +1,6 @@
 import os.path
 from ..store import Store
-from ..entry import Entry
+from ..item import Item
 
 
 class FileStore(Store):
@@ -14,16 +14,16 @@ class FileStore(Store):
     def path(self, hash):
         return os.path.join(self.dir, hash + self.suffix)
 
-    def put(self, entry):
-        with open(self.path(entry.hash), 'w') as file:
-            file.write(entry.json)
+    def put(self, item):
+        with open(self.path(item.hash), 'w') as file:
+            file.write(item.json)
 
     def get(self, hash):
-        entry = Entry()
+        item = Item()
         try:
             with open(self.path(hash), 'r') as file:
-                entry.json = file.read()
-            return entry
+                item.json = file.read()
+            return item
         except FileNotFoundError:
             return None
 

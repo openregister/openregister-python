@@ -1,61 +1,61 @@
 import pytest
 from tempdir import TempDir
-from entry import Entry
-from entry.stores.file import FileStore
+from openregister import Item
+from openregister.stores.file import FileStore
 
 
 def test_not_found():
     store = FileStore()
-    entry = store.get('invalid hash')
-    assert entry is None
+    item = store.get('invalid hash')
+    assert item is None
 
 
 def test_simple_store():
     with TempDir() as tmp:
         store = FileStore(dir=tmp)
         text = 'This is a test'
-        entry = Entry(text=text)
-        store.put(entry)
+        item = Item(text=text)
+        store.put(item)
 
-        got = store.get(entry.hash)
-        assert entry.hash == got.hash
-        assert entry.text == got.text
+        got = store.get(item.hash)
+        assert item.hash == got.hash
+        assert item.text == got.text
 
 
 def test_store():
     with TempDir() as tmp:
         store = FileStore(dir=tmp)
 
-        entry = Entry()
-        empty_hash = entry.hash
-        store.put(entry)
+        item = Item()
+        empty_hash = item.hash
+        store.put(item)
 
-        entry = Entry(text='Foo Value')
-        foo_hash = entry.hash
-        store.put(entry)
+        item = Item(text='Foo Value')
+        foo_hash = item.hash
+        store.put(item)
 
-        entry = Entry(text='Bar Value')
-        bar_hash = entry.hash
-        store.put(entry)
+        item = Item(text='Bar Value')
+        bar_hash = item.hash
+        store.put(item)
 
-        entry = store.get(empty_hash)
-        assert entry.hash == empty_hash
+        item = store.get(empty_hash)
+        assert item.hash == empty_hash
 
-        entry = store.get(foo_hash)
-        assert entry.hash == foo_hash
-        assert entry.text == 'Foo Value'
+        item = store.get(foo_hash)
+        assert item.hash == foo_hash
+        assert item.text == 'Foo Value'
 
-        entry = store.get(bar_hash)
-        assert entry.hash == bar_hash
-        assert entry.text == 'Bar Value'
+        item = store.get(bar_hash)
+        assert item.hash == bar_hash
+        assert item.text == 'Bar Value'
 
 
 def test_tags():
     with TempDir() as tmp:
         store = FileStore(dir=tmp)
-        entry = Entry()
-        entry.tags = {'one', 'two', 'three'}
-        entry = store.put(entry)
+        item = Item()
+        item.tags = {'one', 'two', 'three'}
+        item = store.put(item)
 
 
 def test_get_latest_by_name():
@@ -76,7 +76,7 @@ def test_own_dir_and_suffix():
 def test_idempotent_put():
     with TempDir() as tmp:
         store = FileStore(dir=tmp)
-        entry = Entry(text='Idempotent?')
-        store.put(entry)
-        store.put(entry)
-        store.put(entry)
+        item = Item(text='Idempotent?')
+        store.put(item)
+        store.put(item)
+        store.put(item)

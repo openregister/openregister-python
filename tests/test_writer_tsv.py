@@ -1,6 +1,6 @@
 import io
-from entry import Entry
-from entry.representations.tsv import Writer
+from openregister import Item
+from openregister.representations.tsv import Writer
 
 
 def test_writer_zero_entries():
@@ -21,11 +21,11 @@ def test_writer_zero_entries_titles():
     assert string == 'one\ttwo\tthree\n'
 
 
-def test_writer_one_entry():
+def test_writer_one_item():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name"])
-    entry = Entry(name="one")
-    writer.write(entry)
+    item = Item(name="one")
+    writer.write(item)
     writer.close()
 
     string = out.getvalue()
@@ -36,8 +36,8 @@ def test_writer_many_entries():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name", "text"])
     for name in ['one', 'two', 'three']:
-        entry = Entry(name=name, text="hello world")
-        writer.write(entry)
+        item = Item(name=name, text="hello world")
+        writer.write(item)
     writer.close()
 
     string = out.getvalue()

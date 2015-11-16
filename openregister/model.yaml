@@ -61,7 +61,7 @@
       - Field
 
 - name: hash
-  text: A digest of the canonical serialisation of an Entry which may used to identify an entry from its contents. The hash may appear as a part of a `Link` to uniquely address a specific version of an Entry.
+  text: A digest of the canonical serialisation of an Item which may used to identify an item from its contents. The hash may appear as a part of a `Link` to uniquely address a specific version of an Item.
   datatype: Digest
   tags:
       - Field
@@ -91,13 +91,13 @@
       - Field
 
 - name: minted
-  text: The ISO 8601 time the entry was minted (created).
+  text: The ISO 8601 time the item was minted (created).
   datatype: DateTime
   tags:
       - Field
 
 - name: name
-  text: A human-readable identifier for an Entry, which may used to construct a [Semantic URL](http://en.wikipedia.org/wiki/Semantic_URL#Slug).
+  text: A human-readable identifier for an Item, which may used to construct a [Semantic URL](http://en.wikipedia.org/wiki/Semantic_URL#Slug).
   datatype: String
   tags:
       - Field
@@ -133,7 +133,7 @@
       - Field
 
 - name: type
-  text: Type of an entry.
+  text: Type of an item.
   datatype: String
 
 - name: unitCode
@@ -150,7 +150,7 @@
   tags:
       - Field
 
-- name: Entry
+- name: Item
   text: The most generic item.
   fields:
       - id

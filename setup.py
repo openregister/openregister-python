@@ -12,13 +12,13 @@ def requirements():
     with open('./requirements/production.txt', 'r') as f:
         return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
-setup(name='openregister-entry',
-      version='0.4.0',
-      description='Entry model package',
+setup(name='openregister',
+      version='0.5.0',
+      description='Openregister core package',
       author='Openregister.org',
       author_email='paul.downey@whatfettle.com',
-      url='https://github.com/openregister/entry',
-      download_url='https://github.com/openregister/entry',
+      url='https://github.com/openregister/openregister-python',
+      download_url='https://github.com/openregister/openregister-python',
       packages=find_packages(exclude=['tests']),
       zip_safe=False,
       include_package_data=True,

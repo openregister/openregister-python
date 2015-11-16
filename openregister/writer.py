@@ -5,7 +5,7 @@ class Writer(object):
     def __init__(self, stream):
         self.stream = stream
 
-    def write(self, entry):
+    def write(self, item):
         raise NotImplementedError
 
     def close(self):

@@ -1,32 +1,32 @@
-from entry import Entry
-from entry.representations.txt import content_type
+from openregister import Item
+from openregister.representations.txt import content_type
 
 
 def test_txt_content_type():
     assert content_type == "text/plain; charset=utf-8"
 
 
-def test_empty_entry_as_txt():
-    entry = Entry()
-    data = entry.txt
+def test_empty_item_as_txt():
+    item = Item()
+    data = item.txt
     assert data == ('{}\n')
 
 
-def test_empty_entry_from_txt():
-    entry = Entry()
-    entry.txt = ('{}')
-    assert entry.txt == ('{}\n')
+def test_empty_item_from_txt():
+    item = Item()
+    item.txt = ('{}')
+    assert item.txt == ('{}\n')
 
 
 def test_postaladdress_as_txt():
-    entry = Entry()
-    entry.streetAddress = "Aviation House, 125 Kingsway"
-    entry.addressLocality = "Holborn"
-    entry.addressRegion = "London"
-    entry.postcode = "WC2B 6NH"
-    entry.addressCountry = "GB"
+    item = Item()
+    item.streetAddress = "Aviation House, 125 Kingsway"
+    item.addressLocality = "Holborn"
+    item.addressRegion = "London"
+    item.postcode = "WC2B 6NH"
+    item.addressCountry = "GB"
 
-    data = entry.txt
+    data = item.txt
     assert data == ('addressCountry: GB\n'
                     'addressLocality: Holborn\n'
                     'addressRegion: London\n'
@@ -35,23 +35,23 @@ def test_postaladdress_as_txt():
 
 
 def test_postaladdress_from_txt():
-    entry = Entry()
-    entry.txt = ('addressCountry: GB\n'
-                 'addressLocality: Holborn\n'
-                 'addressRegion: London\n'
-                 'postcode: WC2B 6NH\n'
-                 'streetAddress: Aviation House, 125 Kingsway\n')
+    item = Item()
+    item.txt = ('addressCountry: GB\n'
+                'addressLocality: Holborn\n'
+                'addressRegion: London\n'
+                'postcode: WC2B 6NH\n'
+                'streetAddress: Aviation House, 125 Kingsway\n')
 
-    assert entry.streetAddress == "Aviation House, 125 Kingsway"
-    assert entry.addressLocality == "Holborn"
-    assert entry.addressRegion == "London"
-    assert entry.postcode == "WC2B 6NH"
-    assert entry.addressCountry == "GB"
+    assert item.streetAddress == "Aviation House, 125 Kingsway"
+    assert item.addressLocality == "Holborn"
+    assert item.addressRegion == "London"
+    assert item.postcode == "WC2B 6NH"
+    assert item.addressCountry == "GB"
 
 
 def test_set_of_tags_as_txt():
-    entry = Entry(name='foo', fields={'z', 'b', 'c', 'z'})
-    data = entry.txt
+    item = Item(name='foo', fields={'z', 'b', 'c', 'z'})
+    data = item.txt
     assert data == ('fields:\n'
                     '- b\n'
                     '- c\n'
@@ -60,11 +60,11 @@ def test_set_of_tags_as_txt():
 
 
 def test_set_of_tags_from_txt():
-    entry = Entry()
-    entry.txt = ('fields:\n'
-                 '  - b\n'
-                 '  - c\n'
-                 '  - z\n'
-                 'name: foo\n')
-    assert entry.name == "foo"
-    assert entry.fields == ['b', 'c', 'z']
+    item = Item()
+    item.txt = ('fields:\n'
+                '  - b\n'
+                '  - c\n'
+                '  - z\n'
+                'name: foo\n')
+    assert item.name == "foo"
+    assert item.fields == ['b', 'c', 'z']

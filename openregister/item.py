@@ -1,14 +1,14 @@
 from .datatypes.digest import git_hash, base32_encode
 
 
-class Entry(object):
-    """An Entry, a content addressable set of attributes."""
+class Item(object):
+    """An Item, a content addressable set of attributes."""
     def __init__(self, **kwds):
         self.__dict__.update(kwds)
 
     @property
     def hash(self):
-        """The git hash-object value of for the Entry."""
+        """The git hash-object value of for the Item."""
         return git_hash(self.json.encode("utf-8"))
 
     @property

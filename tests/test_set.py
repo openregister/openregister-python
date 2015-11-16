@@ -1,14 +1,14 @@
-from entry import Entry
+from openregister import Item
 
 
 def test_tags_are_a_set():
-    entry = Entry(fields={'latitude', 'longitude'})
-    assert entry.fields == {'latitude', 'longitude'}
+    item = Item(fields={'latitude', 'longitude'})
+    assert item.fields == {'latitude', 'longitude'}
 
-    entry = Entry(fields={'latitude', 'longitude', 'altitude'})
-    assert entry.fields == {'altitude', 'latitude', 'longitude'}
+    item = Item(fields={'latitude', 'longitude', 'altitude'})
+    assert item.fields == {'altitude', 'latitude', 'longitude'}
 
-    entry = Entry(fields={
+    item = Item(fields={
         'longitude',
         'latitude',
         'latitude',
@@ -16,4 +16,4 @@ def test_tags_are_a_set():
         'latitude',
         'longitude'
     })
-    assert entry.fields == {'latitude', 'longitude'}
+    assert item.fields == {'latitude', 'longitude'}

@@ -1,12 +1,12 @@
 from copy import copy
-from ..entry import Entry
+from ..item import Item
 
 
 content_type = None
 
 
 def load(self, dictionary):
-    """Entry from Python primitive."""
+    """Item from Python primitive."""
     self.__dict__ = dictionary
 
 
@@ -24,4 +24,4 @@ def dump(self):
     return dict
 
 
-Entry.primitive = property(dump, load)
+Item.primitive = property(dump, load)

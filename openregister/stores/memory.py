@@ -8,12 +8,12 @@ class MemoryStore(Store):
     entries = {}
     latest = {}
 
-    def put(self, entry):
-        hash = entry.hash
-        self.entries[hash] = entry
+    def put(self, item):
+        hash = item.hash
+        self.entries[hash] = item
 
         try:
-            self.latest[entry.name] = entry
+            self.latest[item.name] = item
         except AttributeError:
             pass
 

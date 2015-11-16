@@ -24,6 +24,6 @@ class Writer(Writer):
     pass
 
 
-# register this representation as Entry properties
+# register this representation as Item properties
 #
-# Entry.unknown = property(dump, load)
+# Item.unknown = property(dump, load)

@@ -1,12 +1,12 @@
-# Openregister entry
+# Openregister python 
 
-[![Build Status](https://travis-ci.org/openregister/entry.svg?branch=master)](https://travis-ci.org/openregister/entry) [![Coverage Status](https://img.shields.io/coveralls/openregister/entry.svg)](https://coveralls.io/r/openregister/entry)
+[![Build Status](https://travis-ci.org/openregister/item.svg?branch=master)](https://travis-ci.org/openregister/item) [![Coverage Status](https://img.shields.io/coveralls/openregister/item.svg)](https://coveralls.io/r/openregister/item)
 
 A uniform, immutable data store, addressable by its contents, with consistent properties and types.
 
-## Entry ##
+## Item ##
 
-An Entry is a set of [fields](#Field), addressable by a [hash](#Hash) of its contents.
+An Item is a set of [fields](#Field), addressable by a [hash](#Hash) of its contents.
 
 ## Field ##
 
@@ -16,7 +16,7 @@ Where possible the name used for a field matches, or can be mapped onto properti
 
 ## Hash ##
 
-An Entry may be addressed using a unique identifier `hash` generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the canonical JSON serialization of its contents.
+An Item may be addressed using a unique identifier `hash` generated from the [git-hash](http://git-scm.com/book/en/v2/Git-Internals-Git-Objects) value for the canonical JSON serialization of its contents.
 
 ## Datatype ##
 
@@ -28,7 +28,7 @@ When defining a field, the datatype may be qualified by a single suffix characte
 
 ## Representations
 
-The canonical format for a single Entry is sorted JSON with whitespaces removed, but other representations can hold a list of Entries with fidelity:
+The canonical format for a single Item is sorted JSON with whitespaces removed, but other representations can hold a list of Entries with fidelity:
 
 * .yaml - a YAML serialisation of the JSON [jsontoyaml](http://jsontoyaml.com/#python)
 * .txt - a plain text version compatible with [TiddlyWeb](http://tiddlyweb.org)

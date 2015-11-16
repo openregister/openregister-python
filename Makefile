@@ -6,13 +6,13 @@ test:
 	py.test -v -s
 
 coverage:
-	coverage run --source entry -m py.test && coverage report
+	coverage run --source openregister -m py.test && coverage report
 
 coveralls:
-	py.test --cov entry tests/ --cov-report=term --cov-report=html
+	py.test --cov openregister tests/ --cov-report=term --cov-report=html
 
 flake8:
-	flake8 entry tests
+	flake8 openregister tests
 
 dist:
 	python3 setup.py sdist upload
@@ -26,4 +26,4 @@ clean:
 	-find . -name "__pycache__" | xargs rm -rf
 	-rm -rf dist
 	-rm -rf build
-	-rm -rf openregister_entry.egg-info
+	-rm -rf openregister_openregister.egg-info
