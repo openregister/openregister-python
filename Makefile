@@ -26,4 +26,4 @@ clean:
 	-find . -name "__pycache__" | xargs rm -rf
 	-rm -rf dist
 	-rm -rf build
-	-rm -rf tiddlyweb.egg-info
+	-rm -rf openregister_entry.egg-info
