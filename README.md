@@ -1,6 +1,6 @@
-# Openregister python 
+# Openregister python core package
 
-[![Build Status](https://travis-ci.org/openregister/item.svg?branch=master)](https://travis-ci.org/openregister/item) [![Coverage Status](https://img.shields.io/coveralls/openregister/item.svg)](https://coveralls.io/r/openregister/item)
+[![Build Status](https://travis-ci.org/openregister/entry.svg?branch=master)](https://travis-ci.org/openregister/entry) [![Coverage Status](https://img.shields.io/coveralls/openregister/entry.svg)](https://coveralls.io/r/openregister/entry)
 
 A uniform, immutable data store, addressable by its contents, with consistent properties and types.
 
@@ -12,7 +12,7 @@ An Item is a set of [fields](#Field), addressable by a [hash](#Hash) of its cont
 
 A Field is a named value, where name used for a field is globally unique, intended to be used consistently across all instances of entries.
 
-Where possible the name used for a field matches, or can be mapped onto properties  example a field with a name of [post-code](http://schema.org/postalCode) will always indicate the postal code, regardless of where it appears.
+Where possible the name used for a field matches, or can be mapped onto properties. For example, a field with a name of [postcode](http://schema.org/postalCode) will always indicate the postal code, regardless of where it appears.
 
 ## Hash ##
 
