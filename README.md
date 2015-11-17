@@ -6,10 +6,11 @@ A python package for representing openregister data in different formats, useful
 
 ## Dependencies
 
-Requires Python 3:
+Requires Python 3, we recommend using a [virtualenv](https://virtualenvwrapper.readthedocs.org/en/latest/):
 
-    $ mkvirtualenv openregister
+    $ mkvirtualenv -p python3 openregister
     $ workon openregister
+
     (openregister) make init
     (openregister) make
 
