@@ -22,15 +22,16 @@ def dump(self):
 
 class Writer(Writer):
     """Write JSON array."""
-    def __init__(self, stream, start="[", sep=",", end="]"):
+    def __init__(self, stream, start="[", sep=",", eol="", end="]"):
         self.stream = stream
         self.sep = sep
+        self.eol = eol
         self.end = end
         self.stream.write(start)
         self.sol = ""
 
     def write(self, item):
-        self.stream.write(self.sol + dump(item))
+        self.stream.write(self.sol + dump(item) + self.eol)
         self.sol = self.sep
 
     def close(self):
