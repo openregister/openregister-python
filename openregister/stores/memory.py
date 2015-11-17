@@ -3,7 +3,7 @@ from ..store import Store
 
 class MemoryStore(Store):
 
-    """Simple in-memory storage for Entries."""
+    """Simple in-memory storage for Items."""
 
     entries = {}
     latest = {}

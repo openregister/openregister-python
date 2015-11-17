@@ -11,6 +11,6 @@ def test_writer_interface():
     assert reader.stream == stream
 
     with pytest.raises(NotImplementedError):
-        item = reader.read()
+        reader.read()
 
     reader.close()

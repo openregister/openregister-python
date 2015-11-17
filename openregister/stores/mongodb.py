@@ -7,7 +7,7 @@ from pymongo.errors import DuplicateKeyError
 
 class MongoStore(Store):
 
-    """MongoDB storage for Entries."""
+    """MongoDB storage for Items."""
 
     def __init__(self, mongo_uri, collection="entries"):
         client = MongoClient(mongo_uri)

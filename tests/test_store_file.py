@@ -10,6 +10,11 @@ def test_not_found():
     assert item is None
 
 
+def test_defaults():
+    store = FileStore()
+    assert store.dir == "./data"
+
+
 def test_simple_store():
     with TempDir() as tmp:
         store = FileStore(dir=tmp)

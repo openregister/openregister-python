@@ -5,9 +5,9 @@ from ..item import Item
 
 class FileStore(Store):
 
-    """Store Entries as flat-files."""
+    """Store Items as flat-files."""
 
-    def __init__(self, dir="./entries", suffix=".json"):
+    def __init__(self, register="", dir="./data", suffix=".json"):
         self.dir = dir
         self.suffix = suffix
 
