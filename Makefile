@@ -26,4 +26,4 @@ clean:
 	-find . -name "__pycache__" | xargs rm -rf
 	-rm -rf dist
 	-rm -rf build
-	-rm -rf openregister_openregister.egg-info
+	-rm -rf openregister.egg-info

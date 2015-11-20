@@ -8,12 +8,8 @@ if os.environ.get('USER','') == 'vagrant':
 
 from setuptools import setup, find_packages
 
-def requirements():
-    with open('./requirements/production.txt', 'r') as f:
-        return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
-
 setup(name='openregister',
-      version='0.5.0',
+      version='0.5.1',
       description='Openregister core package',
       long_description='Python libraries for wrangling register data',
       author='Openregister.org',
@@ -30,5 +26,8 @@ setup(name='openregister',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.4',
         ],
-      install_requires=requirements(),
+      install_requires=[
+        'PyYAML>=3.11',
+        'pymongo>=2.7.2'
+      ]
 )
