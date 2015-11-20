@@ -3,7 +3,7 @@ from openregister import Item
 from openregister.representations.json import Writer
 
 
-def test_writer_zero_entries():
+def test_writer_zero_items():
     out = io.StringIO()
     writer = Writer(out)
     writer.close()
