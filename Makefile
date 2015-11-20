@@ -3,7 +3,7 @@
 all:	flake8 test coverage
 
 test:
-	py.test -v -s
+	py.test
 
 coverage:
 	coverage run --source openregister -m py.test && coverage report
