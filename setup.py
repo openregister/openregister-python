@@ -15,6 +15,7 @@ def requirements():
 setup(name='openregister',
       version='0.5.0',
       description='Openregister core package',
+      long_description='Python libraries for wrangling register data',
       author='Openregister.org',
       author_email='paul.downey@whatfettle.com',
       url='https://github.com/openregister/openregister-python',
