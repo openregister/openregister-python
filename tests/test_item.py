@@ -26,3 +26,15 @@ def test_item_sorted_keys():
     assert keys[2] == "c"
     assert keys[3] == "d"
     assert keys[4] == "e"
+
+
+def test_item_assignment():
+    item = Item()
+    item.foo = "Foo Value"
+    item.bar = "Bar Value"
+    item['kebab-value'] = "A Kebab"
+
+    assert item.foo == "Foo Value"
+    assert item.bar == "Bar Value"
+    assert item['bar'] == "Bar Value"
+    assert item['kebab-value'] == "A Kebab"

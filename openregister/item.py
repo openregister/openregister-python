@@ -6,6 +6,13 @@ class Item(object):
     def __init__(self, **kwds):
         self.__dict__.update(kwds)
 
+    def __getitem__(self, key):
+        return self.__dict__[key]
+
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+        return value
+
     @property
     def hash(self):
         """The git hash-object value of for the Item."""
