@@ -38,3 +38,9 @@ def test_item_assignment():
     assert item.bar == "Bar Value"
     assert item['bar'] == "Bar Value"
     assert item['kebab-value'] == "A Kebab"
+
+    assert item.get('kebab-value') == "A Kebab"
+    assert item.get('a-missing-value') is None
+
+    item.set('another', "Another Value")
+    assert item.another == "Another Value"

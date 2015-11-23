@@ -52,10 +52,12 @@ def dump(self):
 class Writer(Writer):
     def __init__(self, stream, fieldnames):
         self.stream = stream
-        self.stream.write(dump_line(fieldnames))
+        self.fieldnames = fieldnames
+        self.stream.write(dump_line(self.fieldnames))
 
     def write(self, item):
-        self.stream.write(dump_line(item.values))
+        values = [item.get(key, '') for key in self.fieldnames]
+        self.stream.write(dump_line(values))
 
 
 Item.tsv = property(dump, load)

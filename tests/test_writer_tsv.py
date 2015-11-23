@@ -46,3 +46,19 @@ def test_writer_many_entries():
         'one\thello world\n'
         'two\thello world\n'
         'three\thello world\n')
+
+
+def test_writer_sparse_entries():
+    out = io.StringIO()
+    writer = Writer(out, fieldnames=["name", "text", "address", "z"])
+    for name in ['one', 'two', 'three']:
+        item = Item(name=name, text="hello world")
+        writer.write(item)
+    writer.close()
+
+    string = out.getvalue()
+    assert string == (
+        'name\ttext\taddress\tz\n'
+        'one\thello world\t\t\n'
+        'two\thello world\t\t\n'
+        'three\thello world\t\t\n')

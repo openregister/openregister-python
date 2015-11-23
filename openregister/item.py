@@ -6,12 +6,21 @@ class Item(object):
     def __init__(self, **kwds):
         self.__dict__.update(kwds)
 
-    def __getitem__(self, key):
-        return self.__dict__[key]
+    def __getitem__(self, key, default=None):
+        try:
+            return self.__dict__[key]
+        except KeyError:
+            return default
 
     def __setitem__(self, key, value):
         self.__dict__[key] = value
         return value
+
+    def get(self, key, default=None):
+        return self.__getitem__(key, default)
+
+    def set(self, key, value):
+        return self.__setitem__(key, value)
 
     @property
     def hash(self):
