@@ -26,7 +26,7 @@ def unescape(value):
 
 
 def load_line(line):
-    return [unescape(s) for s in line.split('\t')]
+    return [unescape(s) for s in line.rstrip('\n').split('\t')]
 
 
 def load(self, text, fieldnames=None):
@@ -35,6 +35,17 @@ def load(self, text, fieldnames=None):
     fieldnames = load_line(lines[0])
     values = load_line(lines[1])
     self.__dict__ = dict(zip(fieldnames, values))
+
+
+def reader(stream, fieldnames=None):
+    """Read Items from a stream containing TSV."""
+    if not fieldnames:
+        fieldnames = load_line(stream.readline())
+    for line in stream:
+        values = load_line(line)
+        item = Item()
+        item.__dict__ = dict(zip(fieldnames, values))
+        yield item
 
 
 def dump_line(values):
