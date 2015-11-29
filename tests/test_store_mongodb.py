@@ -5,7 +5,7 @@ from openregister.stores.mongodb import MongoStore
 
 from pymongo import MongoClient
 mongo_host = os.getenv('DB_PORT_27017_TCP_ADDR', '127.0.0.1')
-mongo_uri = 'mongodb://%s:27017/openregister' % mongo_host
+mongo_uri = 'mongodb://%s:27017/openregister-python-test' % mongo_host
 client = MongoClient(mongo_uri)
 
 store = MongoStore(mongo_uri)
