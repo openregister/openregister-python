@@ -38,6 +38,16 @@ def test_newlines_from_tsv():
     assert item.a == 'A value:\ncontaining a newline'
 
 
+def test_list_as_tsv():
+    item = Item()
+    item.a = ["one value", "two value", "three value"]
+
+    assert item.tsv == (
+        'a\n'
+        'one value;two value;three value\n'
+    )
+
+
 def test_ignore_private_as_tsv():
     item = Item()
     item._zero = "to be removed"

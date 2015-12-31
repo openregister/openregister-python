@@ -25,6 +25,17 @@ def unescape(value):
     return value
 
 
+def encode(value):
+    if isinstance(value, str):
+        return value
+
+    return ';'.join(value)
+
+
+def decode(value):
+    return value.split(';')
+
+
 def load_line(line):
     return [unescape(s) for s in line.rstrip('\n').split('\t')]
 
@@ -49,7 +60,7 @@ def reader(stream, fieldnames=None):
 
 
 def dump_line(values):
-    return ('\t'.join(escape(value) for value in values)) + '\n'
+    return ('\t'.join(escape(encode(value)) for value in values)) + '\n'
 
 
 def dump(self):

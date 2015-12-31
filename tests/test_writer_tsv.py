@@ -32,6 +32,17 @@ def test_writer_one_item():
     assert string == 'name\none\n'
 
 
+def test_writer_one_list_item():
+    out = io.StringIO()
+    writer = Writer(out, fieldnames=["name"])
+    item = Item(name=["one", "two", "three"])
+    writer.write(item)
+    writer.close()
+
+    string = out.getvalue()
+    assert string == 'name\none;two;three\n'
+
+
 def test_writer_many_entries():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name", "text"])
