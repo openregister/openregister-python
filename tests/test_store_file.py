@@ -71,7 +71,7 @@ def test_get_latest_by_name():
 
 
 def test_own_dir_and_suffix():
-    dir = './tmp/testing_named_entries'
+    dir = './tmp/testing_named_items'
     suffix = ''
     store = FileStore(dir=dir, suffix=suffix)
     assert store.dir == dir

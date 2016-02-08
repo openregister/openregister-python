@@ -3,7 +3,7 @@ from openregister import Item
 from openregister.representations.tsv import Writer
 
 
-def test_writer_zero_entries():
+def test_writer_zero_items():
     out = io.StringIO()
     writer = Writer(out, fieldnames=[])
     writer.close()
@@ -12,7 +12,7 @@ def test_writer_zero_entries():
     assert string == "\n"
 
 
-def test_writer_zero_entries_titles():
+def test_writer_zero_items_titles():
     out = io.StringIO()
     writer = Writer(out, fieldnames=['one', 'two', 'three'])
     writer.close()
@@ -43,7 +43,7 @@ def test_writer_one_list_item():
     assert string == 'name\none;two;three\n'
 
 
-def test_writer_many_entries():
+def test_writer_many_items():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name", "text"])
     for name in ['one', 'two', 'three']:
@@ -59,7 +59,7 @@ def test_writer_many_entries():
         'three\thello world\n')
 
 
-def test_writer_sparse_entries():
+def test_writer_sparse_items():
     out = io.StringIO()
     writer = Writer(out, fieldnames=["name", "text", "address", "z"])
     for name in ['one', 'two', 'three']:

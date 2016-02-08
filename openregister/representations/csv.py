@@ -41,7 +41,7 @@ def load(self, text,
 
 
 class Writer(Writer):
-    """Write CSV of entries."""
+    """Write CSV of items."""
     def __init__(self, stream, fieldnames,
                  delimiter=delimiter,
                  lineterminator=lineterminator,

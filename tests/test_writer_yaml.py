@@ -3,7 +3,7 @@ from openregister import Item
 from openregister.representations.yaml import Writer
 
 
-def test_writer_zero_entries():
+def test_writer_zero_items():
     out = io.StringIO()
     writer = Writer(out)
     writer.close()
@@ -23,7 +23,7 @@ def test_writer_one_item():
     assert string == '- name: one\n'
 
 
-def test_writer_many_entries():
+def test_writer_many_items():
     out = io.StringIO()
     writer = Writer(out)
     for name in ['one', 'two', 'three']:

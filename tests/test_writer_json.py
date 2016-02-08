@@ -23,7 +23,7 @@ def test_writer_one_item():
     assert string == '[{"name":"one"}]'
 
 
-def test_writer_many_entries():
+def test_writer_many_items():
     out = io.StringIO()
     writer = Writer(out)
     for name in ['one', 'two', 'three']:

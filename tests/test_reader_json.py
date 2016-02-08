@@ -3,7 +3,7 @@ import io
 from openregister.representations.json import reader
 
 
-def test_reader_zero_entries():
+def test_reader_zero_items():
     stream = io.StringIO("")
     with pytest.raises(StopIteration):
         next(reader(stream))
