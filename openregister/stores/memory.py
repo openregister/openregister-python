@@ -5,12 +5,12 @@ class MemoryStore(Store):
 
     """Simple in-memory storage for Items."""
 
-    entries = {}
+    items = {}
     latest = {}
 
     def put(self, item):
         hash = item.hash
-        self.entries[hash] = item
+        self.items[hash] = item
 
         try:
             self.latest[item.name] = item
@@ -19,7 +19,7 @@ class MemoryStore(Store):
 
     def get(self, hash):
         try:
-            return self.entries[hash]
+            return self.items[hash]
         except KeyError:
             return None
 
