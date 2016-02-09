@@ -9,7 +9,7 @@ if os.environ.get('USER','') == 'vagrant':
 from setuptools import setup, find_packages
 
 setup(name='openregister',
-      version='0.5.5',
+      version='0.6.0',
       description='Openregister core package',
       long_description='Python libraries for wrangling register data',
       author='Openregister.org',

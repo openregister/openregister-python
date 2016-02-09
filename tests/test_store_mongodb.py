@@ -67,12 +67,13 @@ def test_get_latest_by_name():
         store.get_latest(name="toves")
 
 
-def test_own_database_and_collection():
+def test_own_database_and_prefix():
     mongo_uri = 'mongodb://%s:27017/testing_named_items' % mongo_host
-    collection = 'testing_collection'
-    store = MongoStore(mongo_uri, collection=collection)
+    prefix = 'testing_'
+    store = MongoStore(mongo_uri, prefix=prefix)
     assert store.db.name == 'testing_named_items'
-    assert store.items.name == collection
+    assert store.items.name == prefix + "items"
+    assert store.entries.name == prefix + "entries"
     clear_db(mongo_uri, store.db.name)
 
 

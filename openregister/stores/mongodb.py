@@ -1,6 +1,7 @@
 import math
 from ..store import Store
 from ..item import Item
+from ..entry import Entry
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
@@ -9,10 +10,31 @@ class MongoStore(Store):
 
     """MongoDB storage for Items."""
 
-    def __init__(self, mongo_uri, collection="items"):
+    def __init__(self, mongo_uri, prefix=""):
         client = MongoClient(mongo_uri)
         self.db = client.get_default_database()
-        self.items = self.db[collection]
+        self.prefix = prefix
+        self.items = self.db[prefix + "items"]
+        self.entries = self.db[prefix + "entries"]
+        self.entry_number = prefix + "entry_number"
+
+    def next_entry_number(self):
+        return self.db.counters.find_one_and_update(
+            {'_id': self.entry_number},
+            {'$inc': {'seq': 1}},
+            upsert=True
+        ).seq
+
+    def add(self, item, timestamp=None):
+        self.put(item)
+
+        entry = Entry(self.next_entry_number(), item.hash, timestamp)
+
+        self.entries.insert({
+            '_id': entry.entry_number,
+            'item-hash': item.item_hash,
+            'timestamp': timestamp
+        })
 
     def put(self, item):
         doc = item.primitive

@@ -5,9 +5,15 @@ class Store(object):
         pass
 
     def put(self, item):
+        """Store item"""
         raise NotImplementedError
 
     def get(self, hash):
+        """Retrieve item"""
+        raise NotImplementedError
+
+    def add(self, item, timestamp=None):
+        """Add item as a new entry"""
         raise NotImplementedError
 
     def get_latest(self, name=None):
