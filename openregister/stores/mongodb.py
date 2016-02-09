@@ -2,7 +2,7 @@ import math
 from ..store import Store
 from ..item import Item
 from ..entry import Entry
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 from pymongo.errors import DuplicateKeyError
 
 
@@ -22,8 +22,9 @@ class MongoStore(Store):
         return self.db.counters.find_one_and_update(
             {'_id': self.entry_number},
             {'$inc': {'seq': 1}},
-            upsert=True
-        ).seq
+            upsert=True,
+            return_document=ReturnDocument.AFTER
+        )['seq']
 
     def add(self, item, timestamp=None):
         self.put(item)
@@ -32,7 +33,7 @@ class MongoStore(Store):
 
         self.entries.insert({
             '_id': entry.entry_number,
-            'item-hash': item.item_hash,
+            'item-hash': item.hash,
             'timestamp': timestamp
         })
 
