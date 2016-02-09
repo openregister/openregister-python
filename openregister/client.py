@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 from openregister.item import Item
 
 
@@ -9,7 +10,7 @@ class Client(object):
     Access register items from an openregister server.
     """
 
-    def __init__(self, logger=None, config=None):
+    def __init__(self, logger=None, config={}):
         self.logger = logger
         self._config = config
 
@@ -33,9 +34,9 @@ class Client(object):
             self.config(register, 'register'),
             register,
             value))
-        item = Item()
         json = response.json()
-        item.json = json['entry']
+        item = Item()
+        item.primitive = json['entry']
         return item
 
     def index(self, index, field, value):
