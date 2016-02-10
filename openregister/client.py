@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 from openregister.item import Item
 
 
