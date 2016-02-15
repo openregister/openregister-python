@@ -91,6 +91,15 @@ def test_idempotent_put():
     store.put(item)
 
 
+def test_add_entry():
+    clear_db(mongo_uri, store.db.name)
+    store.add(Item(n='1'))
+    store.add(Item(n='2'))
+    store.add(Item(n='3'))
+    store.add(Item(n='4'))
+    clear_db(mongo_uri, store.db.name)
+
+
 def test_find():
     mongo_uri = 'mongodb://%s:27017/testing_finding' % mongo_host
     store = MongoStore(mongo_uri)

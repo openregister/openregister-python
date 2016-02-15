@@ -16,3 +16,12 @@ class Entry(object):
 
         if self.timestamp is None:
             self.timestamp = datetime.datetime.now()
+
+    @property
+    def primitive(self):
+        """Python primitive representation."""
+        dict = {}
+        dict['entry_number'] = self.entry_number
+        dict['item_hash'] = self.item_hash
+        dict['timestamp'] = self.timestamp
+        return dict

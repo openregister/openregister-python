@@ -12,15 +12,12 @@ class Store(object):
         """Retrieve item"""
         raise NotImplementedError
 
-    def add(self, item, timestamp=None):
-        """Add item as a new entry"""
-        raise NotImplementedError
-
-    def get_latest(self, name=None):
-        raise NotImplementedError
-
     def find(self, query={}, page=1, page_size=50):
         raise NotImplementedError
 
     def find_all(self, query={}):
+        raise NotImplementedError
+
+    def add(self, item, timestamp=None):
+        """Add item as a new entry"""
         raise NotImplementedError

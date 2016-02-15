@@ -13,29 +13,17 @@ class MongoStore(Store):
     def __init__(self, mongo_uri, prefix=""):
         client = MongoClient(mongo_uri)
         self.db = client.get_default_database()
+
+        # allows multiple registers in a single database
         self.prefix = prefix
+
+        # mongo collections
         self.items = self.db[prefix + "items"]
         self.entries = self.db[prefix + "entries"]
+        self.records = self.db[prefix + "records"]
+
+        # self-incrementing entry_number
         self.entry_number = prefix + "entry_number"
-
-    def next_entry_number(self):
-        return self.db.counters.find_one_and_update(
-            {'_id': self.entry_number},
-            {'$inc': {'seq': 1}},
-            upsert=True,
-            return_document=ReturnDocument.AFTER
-        )['seq']
-
-    def add(self, item, timestamp=None):
-        self.put(item)
-
-        entry = Entry(self.next_entry_number(), item.hash, timestamp)
-
-        self.entries.insert({
-            '_id': entry.entry_number,
-            'item-hash': item.hash,
-            'timestamp': timestamp
-        })
 
     def put(self, item):
         doc = item.primitive
@@ -86,3 +74,27 @@ class MongoStore(Store):
         cursor = self.items.find(query)
         items = [Item(**record) for record in cursor]
         return items
+
+    #
+    #  entries
+    #
+    def next_entry_number(self):
+        return self.db.counters.find_one_and_update(
+            {'_id': self.entry_number},
+            {'$inc': {'seq': 1}},
+            upsert=True,
+            return_document=ReturnDocument.AFTER
+        )['seq']
+
+    def add(self, item, timestamp=None):
+        self.put(item)
+
+        entry = Entry(self.next_entry_number(), item.hash, timestamp)
+
+        doc = entry.primitive
+        doc['_id'] = entry.entry_number
+        del doc['entry_number']
+
+        self.entries.insert(doc)
+
+        return entry
