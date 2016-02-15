@@ -1,10 +1,18 @@
 import datetime
 
+import numbers
+
 
 class Entry(object):
     """An Entry, an ordered instance of an item in a register."""
-    def __init__(self, entry_number, item_hash, timestamp=None):
+    def __init__(self, entry_number=None, item_hash=None, timestamp=None):
+        if not (entry_number is None
+                or isinstance(entry_number, numbers.Integral)):
+            raise ValueError('entry_number')
+
         self.entry_number = entry_number
         self.item_hash = item_hash
-        if timestamp is None:
+        self.timestamp = timestamp
+
+        if self.timestamp is None:
             self.timestamp = datetime.datetime.now()
