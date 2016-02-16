@@ -1,4 +1,3 @@
-import pytest
 from tempdir import TempDir
 from openregister import Item
 from openregister.stores.file import FileStore
@@ -61,13 +60,6 @@ def test_tags():
         item = Item()
         item.tags = {'one', 'two', 'three'}
         item = store.put(item)
-
-
-def test_get_latest_by_name():
-    with TempDir() as tmp:
-        store = FileStore(dir=tmp)
-        with pytest.raises(NotImplementedError):
-            store.get_latest(name="toves")
 
 
 def test_own_dir_and_suffix():

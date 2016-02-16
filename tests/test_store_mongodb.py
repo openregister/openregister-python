@@ -1,4 +1,3 @@
-import pytest
 import os
 from openregister import Item
 from openregister.stores.mongodb import MongoStore
@@ -62,11 +61,6 @@ def test_tags():
     item = store.put(item)
 
 
-def test_get_latest_by_name():
-    with pytest.raises(NotImplementedError):
-        store.get_latest(name="toves")
-
-
 def test_own_database_and_prefix():
     mongo_uri = 'mongodb://%s:27017/testing_named_items' % mongo_host
     prefix = 'testing_'
@@ -104,24 +98,32 @@ def test_find():
     mongo_uri = 'mongodb://%s:27017/testing_finding' % mongo_host
     store = MongoStore(mongo_uri)
     store.put(Item(name='one', tags={'tag1'}))
-    store.put(Item(name='two', tags={'tag2'}))
-    store.put(Item(name='three', tags={}))
+    store.put(Item(name='two', tags={'tag1'}))
+    store.put(Item(name='three', tags={'tag1'}))
+
     store.put(Item(name='four', tags={'tag2'}))
+    store.put(Item(name='five', tags={'tag2'}))
+    store.put(Item(name='six', tags={'tag1'}))
+    store.put(Item(name='seven', tags={'tag2'}))
+    store.put(Item(name='eight', tags={'tag2'}))
+
+    store.put(Item(name='nine', tags={'tag1'}))
+    store.put(Item(name='ten', tags={'tag1'}))
 
     meta, items = store.find()
-    assert meta['total'] == 4
+    assert meta['total'] == 10
     assert meta['page'] == 1
     assert meta['pages'] == 1
-    assert len(items) == 4
+    assert len(items) == 10
 
-    meta, items = store.find(page_size=2, paginate_if_longer_than=2)
+    meta, items = store.find(page_size=8)
     assert meta['page'] == 1
     assert meta['pages'] == 2
-    assert len(items) == 2
+    assert len(items) == 8
 
-    meta, items = store.find(page=2, page_size=2, paginate_if_longer_than=2)
+    meta, items = store.find(page=2, page_size=2)
     assert meta['page'] == 2
-    assert meta['pages'] == 2
+    assert meta['pages'] == 5
     assert len(items) == 2
 
     clear_db(mongo_uri, store.db.name)

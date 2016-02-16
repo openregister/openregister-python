@@ -10,9 +10,12 @@ class MongoStore(Store):
 
     """MongoDB storage for Items."""
 
-    def __init__(self, mongo_uri, prefix=""):
+    def __init__(self, mongo_uri, prefix="", page_size=None):
         client = MongoClient(mongo_uri)
         self.db = client.get_default_database()
+
+        if page_size is not None:
+            self.page_size = page_size
 
         # allows multiple registers in a single database
         self.prefix = prefix
@@ -44,36 +47,20 @@ class MongoStore(Store):
         item.primitive = doc
         return item
 
-    def find(self, query={}, page=1, page_size=50,
-             paginate_if_longer_than=10000):
+    def find(self, query={}, page=1, page_size=None):
+        if page_size is None or page_size < 0:
+            page_size = self.page_size
 
-        total = self.items.find(query).count()
-        if total < paginate_if_longer_than:
-            page_size = total
-            pages = 1
-        else:
-            pages = math.ceil(total/page_size)
-        if page == 1:
-            start = page - 1
-        else:
-            start = (page - 1) * page_size
+        meta = {}
+        meta['total'] = self.items.find(query).count()
+        meta['pages'] = math.ceil(meta['total']/page_size)
+        meta['page'] = page
 
-        cursor = self.items.find(query)[start: start+page_size]
-        items = [Item(**record) for record in cursor]
-
-        meta = {
-            "query": query,
-            "total": total,
-            "page":  page,
-            "pages": pages,
-        }
+        items = [Item(**doc) for doc in self.items.find()
+                 .skip(page_size*(page-1))
+                 .limit(page_size)]
 
         return meta, items
-
-    def find_all(self, query):
-        cursor = self.items.find(query)
-        items = [Item(**record) for record in cursor]
-        return items
 
     #
     #  entries

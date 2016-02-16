@@ -1,7 +1,9 @@
 class Store(object):
 
+    page_size = 10000
+
     """Interface for storage of Items."""
-    def __init__(self, register="unknown"):
+    def __init__(self):
         pass
 
     def put(self, item):

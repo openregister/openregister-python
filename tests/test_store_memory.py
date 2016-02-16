@@ -44,32 +44,6 @@ def test_store():
     assert item.text == 'Bar Value'
 
 
-def test_get_latest_by_name():
-    store.put(Item(name="toves", text='Slithy'))
-    store.put(Item(name="borogoves", text='Mimsy'))
-
-    item = store.get_latest(name="toves")
-    assert item.name == "toves"
-    assert item.text == "Slithy"
-
-    v1 = store.get_latest(name="borogoves")
-    assert v1.name == "borogoves"
-    assert v1.text == "Mimsy"
-
-    v2 = Item(name="borogoves", text='All mimsy')
-    store.put(v2)
-
-    item = store.get_latest(name="borogoves")
-    assert item.hash == v2.hash
-    assert item.name == "borogoves"
-    assert item.text == "All mimsy"
-
-    item = store.get(v1.hash)
-    assert item.hash == v1.hash
-    assert item.name == "borogoves"
-    assert item.text == "Mimsy"
-
-
 def test_idempotent_put():
     item = Item(text='Idempotent?')
     store.put(item)
