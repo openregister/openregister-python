@@ -1,3 +1,4 @@
+from copy import copy
 from .datatypes.digest import git_hash, base32_encode
 
 
@@ -39,3 +40,22 @@ class Item(object):
     @property
     def values(self):
         return (self.__dict__[key] for key in self.keys)
+
+    @property
+    def primitive(self):
+        """Python primitive representation."""
+        dict = {}
+        for key, value in self.__dict__.items():
+            if not key.startswith('_'):
+                dict[key] = copy(value)
+
+        for key in dict:
+            if isinstance(dict[key], (set)):
+                dict[key] = sorted(list(dict[key]))
+
+        return dict
+
+    @primitive.setter
+    def primitive(self, dictionary):
+        """Item from Python primitive."""
+        self.__dict__ = dictionary
