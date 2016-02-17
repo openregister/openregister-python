@@ -16,7 +16,7 @@ def clear_db(mongo_uri, db_name):
 
 
 def test_not_found():
-    item = store.get('invalid hash')
+    item = store.item('invalid hash')
     assert item is None
 
 
@@ -25,7 +25,7 @@ def test_simple_store():
     item = Item(text=text)
     store.put(item)
 
-    got = store.get(item.hash)
+    got = store.item(item.hash)
     assert item.hash == got.hash
     assert item.text == got.text
 
@@ -43,14 +43,14 @@ def test_store():
     bar_hash = item.hash
     store.put(item)
 
-    item = store.get(empty_hash)
+    item = store.item(empty_hash)
     assert item.hash == empty_hash
 
-    item = store.get(foo_hash)
+    item = store.item(foo_hash)
     assert item.hash == foo_hash
     assert item.text == 'Foo Value'
 
-    item = store.get(bar_hash)
+    item = store.item(bar_hash)
     assert item.hash == bar_hash
     assert item.text == 'Bar Value'
 
@@ -66,8 +66,8 @@ def test_own_database_and_prefix():
     prefix = 'testing_'
     store = MongoStore(mongo_uri, prefix=prefix)
     assert store.db.name == 'testing_named_items'
-    assert store.items.name == prefix + "items"
-    assert store.entries.name == prefix + "entries"
+    assert store._items.name == prefix + "items"
+    assert store._entries.name == prefix + "entries"
     clear_db(mongo_uri, store.db.name)
 
 
@@ -85,7 +85,7 @@ def test_idempotent_put():
     store.put(item)
 
 
-def test_add_entry():
+def test_add():
     clear_db(mongo_uri, store.db.name)
     store.add(Item(n='1'))
     store.add(Item(n='2'))
@@ -94,34 +94,32 @@ def test_add_entry():
     clear_db(mongo_uri, store.db.name)
 
 
-def test_find():
+def test_items():
     mongo_uri = 'mongodb://%s:27017/testing_finding' % mongo_host
     store = MongoStore(mongo_uri)
     store.put(Item(name='one', tags={'tag1'}))
     store.put(Item(name='two', tags={'tag1'}))
     store.put(Item(name='three', tags={'tag1'}))
-
     store.put(Item(name='four', tags={'tag2'}))
     store.put(Item(name='five', tags={'tag2'}))
     store.put(Item(name='six', tags={'tag1'}))
     store.put(Item(name='seven', tags={'tag2'}))
     store.put(Item(name='eight', tags={'tag2'}))
-
     store.put(Item(name='nine', tags={'tag1'}))
     store.put(Item(name='ten', tags={'tag1'}))
 
-    meta, items = store.find()
+    meta, items = store.items()
     assert meta['total'] == 10
     assert meta['page'] == 1
     assert meta['pages'] == 1
     assert len(items) == 10
 
-    meta, items = store.find(page_size=8)
+    meta, items = store.items(page_size=8)
     assert meta['page'] == 1
     assert meta['pages'] == 2
     assert len(items) == 8
 
-    meta, items = store.find(page=2, page_size=2)
+    meta, items = store.items(page=2, page_size=2)
     assert meta['page'] == 2
     assert meta['pages'] == 5
     assert len(items) == 2

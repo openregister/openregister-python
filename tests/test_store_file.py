@@ -5,7 +5,7 @@ from openregister.stores.file import FileStore
 
 def test_not_found():
     store = FileStore()
-    item = store.get('invalid hash')
+    item = store.item('invalid hash')
     assert item is None
 
 
@@ -21,7 +21,7 @@ def test_simple_store():
         item = Item(text=text)
         store.put(item)
 
-        got = store.get(item.hash)
+        got = store.item(item.hash)
         assert item.hash == got.hash
         assert item.text == got.text
 
@@ -42,14 +42,14 @@ def test_store():
         bar_hash = item.hash
         store.put(item)
 
-        item = store.get(empty_hash)
+        item = store.item(empty_hash)
         assert item.hash == empty_hash
 
-        item = store.get(foo_hash)
+        item = store.item(foo_hash)
         assert item.hash == foo_hash
         assert item.text == 'Foo Value'
 
-        item = store.get(bar_hash)
+        item = store.item(bar_hash)
         assert item.hash == bar_hash
         assert item.text == 'Bar Value'
 

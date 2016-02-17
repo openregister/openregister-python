@@ -17,13 +17,10 @@ class MemoryStore(Store):
         except AttributeError:
             pass
 
-    def get(self, hash):
+    def item(self, hash):
         try:
             return self.items[hash]
         except KeyError:
             return None
-
-    def get_latest(self, name=None):
-        return self.latest[name]
 
 store = MemoryStore()

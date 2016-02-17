@@ -18,7 +18,7 @@ class FileStore(Store):
         with open(self.path(item.hash), 'w') as file:
             file.write(item.json)
 
-    def get(self, hash):
+    def item(self, hash):
         item = Item()
         try:
             with open(self.path(hash), 'r') as file:

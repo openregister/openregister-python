@@ -1,4 +1,3 @@
-import math
 from ..store import Store
 from ..item import Item
 from ..entry import Entry
@@ -21,23 +20,27 @@ class MongoStore(Store):
         self.prefix = prefix
 
         # mongo collections
-        self.items = self.db[prefix + "items"]
-        self.entries = self.db[prefix + "entries"]
-        self.records = self.db[prefix + "records"]
+        self._items = self.db[prefix + "items"]
+        self._entries = self.db[prefix + "entries"]
+        self._records = self.db[prefix + "records"]
 
         # self-incrementing entry_number
         self.entry_number = prefix + "entry_number"
 
+    #
+    #  item
+    #
     def put(self, item):
         doc = item.primitive
         doc['_id'] = item.hash
         try:
-            self.items.insert(doc)
+            self._items.insert(doc)
         except DuplicateKeyError:
             pass
+        return item
 
-    def get(self, hash):
-        doc = self.items.find_one({'_id': hash})
+    def item(self, item_hash):
+        doc = self._items.find_one({'_id': item_hash})
         if doc is None:
             return None
 
@@ -47,23 +50,8 @@ class MongoStore(Store):
         item.primitive = doc
         return item
 
-    def find(self, query={}, page=1, page_size=None):
-        if page_size is None or page_size < 0:
-            page_size = self.page_size
-
-        meta = {}
-        meta['total'] = self.items.find(query).count()
-        meta['pages'] = math.ceil(meta['total']/page_size)
-        meta['page'] = page
-
-        items = [Item(**doc) for doc in self.items.find()
-                 .skip(page_size*(page-1))
-                 .limit(page_size)]
-
-        return meta, items
-
     #
-    #  entries
+    #  entry
     #
     def next_entry_number(self):
         return self.db.counters.find_one_and_update(
@@ -82,6 +70,36 @@ class MongoStore(Store):
         doc['_id'] = entry.entry_number
         del doc['entry_number']
 
-        self.entries.insert(doc)
+        self._entries.insert(doc)
 
         return entry
+
+    #
+    #  collections
+    #
+    def _query(self, query={}):
+        for key in query:
+            if query[key] is None or query[key] == '':
+                del query['key']
+
+    def items(self, item_hash=None, page=1, page_size=None):
+        collection = self._items
+        query = self._query({'item-hash': {'$gt': item_hash}})
+        meta = self.meta(collection.find(query).count(), page, page_size)
+
+        items = [Item(**doc) for doc in collection.find(query)
+                 .skip(meta['skip'])
+                 .limit(meta['page_size'])]
+
+        return meta, items
+
+    def entries(self, item_hash=None, page=1, page_size=None):
+        collection = self._entries
+        query = self._query({'item-hash': item_hash})
+        meta = self.meta(collection.find(query).count(), page, page_size)
+
+        entries = [Entry().primitive(doc) for doc in collection.find(query)
+                   .skip(meta['skip'])
+                   .limit(meta['page_size'])]
+
+        return meta, entries
