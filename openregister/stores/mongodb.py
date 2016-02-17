@@ -68,7 +68,7 @@ class MongoStore(Store):
 
         doc = entry.primitive
         doc['_id'] = entry.entry_number
-        del doc['entry_number']
+        del doc['entry-number']
 
         self._entries.insert(doc)
 
