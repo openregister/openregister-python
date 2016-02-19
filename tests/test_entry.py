@@ -3,6 +3,9 @@ from datetime import datetime
 from openregister.entry import Entry
 
 
+fmt = "%Y-%m-%dT%H:%M:%SZ"
+
+
 def test_new_empty_entry():
     entry = Entry()
     assert entry.entry_number is None
@@ -22,7 +25,9 @@ def test_new_entry_from_params():
     entry = Entry(entry_number, item_hash, timestamp)
     assert entry.entry_number == entry_number
     assert entry.item_hash == item_hash
-    assert entry.timestamp == timestamp
+
+    assert isinstance(entry.timestamp, datetime)
+    assert entry.timestamp == datetime.strptime(timestamp, fmt)
 
     entry = Entry(item_hash=item_hash)
     assert entry.entry_number is None
@@ -32,7 +37,9 @@ def test_new_entry_from_params():
 def test_entry_as_primitive():
     timestamp = '2016-02-15T09:30:33Z'
     entry = Entry(timestamp=timestamp)
+
     assert entry.primitive == {'timestamp': timestamp}
+
     entry.entry_number = 99
     assert entry.primitive == {
         'timestamp': timestamp,
@@ -53,7 +60,7 @@ def test_entry_from_primitive():
     timestamp = datetime.utcnow().replace(microsecond=0)
 
     primitive = {
-        'timestamp': timestamp.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        'timestamp': timestamp.strftime(fmt),
         'item-hash': '86919082e44f7256557646f4a764e2af92e53951',
         'entry-number': 99
     }

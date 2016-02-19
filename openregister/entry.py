@@ -2,9 +2,14 @@ from datetime import datetime
 
 import numbers
 
+fmt = "%Y-%m-%dT%H:%M:%SZ"
+
 
 class Entry(object):
     """An Entry, an ordered instance of an item in a register."""
+
+    fields = ['entry-number', 'item-hash', 'timestamp']
+
     def __init__(self, entry_number=None, item_hash=None, timestamp=None):
         if not (entry_number is None
                 or isinstance(entry_number, numbers.Integral)):
@@ -20,10 +25,13 @@ class Entry(object):
 
     @timestamp.setter
     def timestamp(self, timestamp):
+        """Entry timestamp as datetime."""
         if timestamp is None:
             self._timestamp = datetime.utcnow()
-        else:
+        elif isinstance(timestamp, datetime):
             self._timestamp = timestamp
+        else:
+            self._timestamp = datetime.strptime(timestamp, fmt)
 
     @property
     def primitive(self):
@@ -35,7 +43,7 @@ class Entry(object):
         if self.item_hash is not None:
             primitive['item-hash'] = self.item_hash
 
-        primitive['timestamp'] = self.timestamp
+        primitive['timestamp'] = self.timestamp.strftime(fmt)
         return primitive
 
     @primitive.setter
@@ -43,6 +51,4 @@ class Entry(object):
         """Entry from Python primitive."""
         self.entry_number = primitive['entry-number']
         self.item_hash = primitive['item-hash']
-        self.timestamp = datetime.strptime(
-            primitive['timestamp'],
-            "%Y-%m-%dT%H:%M:%SZ")
+        self.timestamp = primitive['timestamp']
