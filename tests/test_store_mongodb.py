@@ -77,7 +77,6 @@ def test_own_db():
     assert store.db.name == 'testing_other_items'
     clear_db(mongo_uri, store.db.name)
 
-
 def test_idempotent_put():
     item = Item(text='Idempotent?')
     store.put(item)
@@ -97,6 +96,7 @@ def test_add():
 def test_items():
     mongo_uri = 'mongodb://%s:27017/testing_finding' % mongo_host
     store = MongoStore(mongo_uri)
+    clear_db(mongo_uri, store.db.name)
     store.put(Item(name='one', tags={'tag1'}))
     store.put(Item(name='two', tags={'tag1'}))
     store.put(Item(name='three', tags={'tag1'}))
@@ -125,3 +125,8 @@ def test_items():
     assert len(items) == 2
 
     clear_db(mongo_uri, store.db.name)
+
+
+def test_counting():
+    clear_db(mongo_uri, store.db.name)
+    store.put(Item(text='one'))
