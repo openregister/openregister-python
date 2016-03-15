@@ -77,6 +77,7 @@ def test_own_db():
     assert store.db.name == 'testing_other_items'
     clear_db(mongo_uri, store.db.name)
 
+
 def test_idempotent_put():
     item = Item(text='Idempotent?')
     store.put(item)
