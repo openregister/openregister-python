@@ -33,6 +33,7 @@ def test_item_assignment():
     item.foo = "Foo Value"
     item.bar = "Bar Value"
     item['kebab-value'] = "A Kebab"
+    item['empty'] = ''
 
     assert item.foo == "Foo Value"
     assert item.bar == "Bar Value"
@@ -41,6 +42,7 @@ def test_item_assignment():
 
     assert item.get('kebab-value') == "A Kebab"
     assert item.get('a-missing-value') is None
+    assert item.get('empty') is None
 
     item.set('another', "Another Value")
     assert item.another == "Another Value"
@@ -56,6 +58,12 @@ def test_empty_item_from_primitive():
     item = Item()
     item.primitive = {}
     assert item.primitive == {}
+
+
+def test_empty_field_is_missing():
+    item = Item()
+    item.primitive = {"empty-field": "", "field": "bar"}
+    assert item.primitive == {"field": "bar"}
 
 
 def test_ignore_private_as_primitive():

@@ -14,6 +14,10 @@ class Item(object):
             return default
 
     def __setitem__(self, key, value):
+        if not value:
+            if key in self.__dict__:
+                self.__dict__.__delitem(key)
+            return None
         self.__dict__[key] = value
         return value
 
@@ -58,4 +62,4 @@ class Item(object):
     @primitive.setter
     def primitive(self, dictionary):
         """Item from Python primitive."""
-        self.__dict__ = dictionary
+        self.__dict__ = {k: v for k, v in dictionary.items() if v}
