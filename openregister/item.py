@@ -16,7 +16,7 @@ class Item(object):
     def __setitem__(self, key, value):
         if not value:
             if key in self.__dict__:
-                self.__dict__.__delitem(key)
+                self.__dict__.__delitem__(key)
             return None
         self.__dict__[key] = value
         return value

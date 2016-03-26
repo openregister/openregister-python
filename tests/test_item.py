@@ -66,6 +66,13 @@ def test_empty_field_is_missing():
     assert item.primitive == {"field": "bar"}
 
 
+def test_delete_field():
+    item = Item()
+    item.primitive = {"a": "a value", "b": "b value"}
+    item['b'] = ''
+    assert item.primitive == {"a": "a value"}
+
+
 def test_ignore_private_as_primitive():
     item = Item()
     item._zero = "to be removed"
